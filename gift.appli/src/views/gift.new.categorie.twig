@@ -3,7 +3,7 @@
 {% block title %}Création de categorie{% endblock %}
 
 {% block content %}
-    <form method="post">
+    <form method="post" action="{{ url_for('categories') }}">
         <div>
             <label for="id">Libelle</label>
             <input type="text" name="libelle" id="libelle">

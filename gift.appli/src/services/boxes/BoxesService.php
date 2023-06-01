@@ -3,12 +3,13 @@
 namespace gift\app\services\box;
 
 use gift\app\models\Box;
-use gift\app\models\Categorie;
 use Ramsey\Uuid\Uuid;
 
-class BoxsService {
+class BoxesService
+{
 
-    function create(array $donnee) : void {
+    function create(array $donnee): void
+    {
         $valide = true;
         $box = new Box();
 
@@ -17,11 +18,11 @@ class BoxsService {
         $box->libelle = ($donnee['libelle'] == filter_var($donnee['libelle'])) ? $donnee['libelle'] : $valide = false;
         $box->description = ($donnee['description'] == filter_var($donnee['description'])) ? $donnee['description'] : $valide = false;
         $box->kdo = ($donnee['kdo'] == filter_var($donnee['kdo'])) ? $donnee['kdo'] : $valide = false;
-        if(isset($donnee['message_kdo'])) {
+        if (isset($donnee['message_kdo'])) {
             $box->message_kdo = ($donnee['message_kdo'] == filter_var($donnee['message_kdo'])) ? $donnee['message_kdo'] : $valide = false;
         }
 
-        if(!$valide) throw new \Exception("Invalide");
+        if (!$valide) throw new \Exception("Invalide");
         $box->status = Box::CREATED;
 
         $box->save();

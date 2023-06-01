@@ -1,0 +1,14 @@
+#nav {
+    background-color: blue;
+    padding: 20px;
+    margin: -10px;
+    font-family: "Arial";
+    height: 100%;
+}
+
+#nav > a {
+    display: block;
+    text-decoration: none;
+    color: white;
+    padding: 10px 0px 10px 0px;
+}

@@ -1,0 +1,12 @@
+#header {
+    background-color: darkblue;
+    padding: 10px 30px;
+    margin: -10px;
+    font-family: "Arial";
+    display: flex;
+    color: white;
+}
+
+#header > p {
+    padding-right: 10%;
+}

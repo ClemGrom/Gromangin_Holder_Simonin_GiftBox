@@ -1,0 +1,10 @@
+{% extends "gift.main.twig" %}
+
+{% block title %}Categorie {{ id }}{% endblock %}
+
+{% block content %}
+    <h1>Categorie {{ id }}</h1>
+    <p>{{ libelle }}</p>
+    <p>{{ description }}</p>
+    <a href="{{ url_for('categorieToPresta', { 'id': id }) }}">Prestations</a>
+{% endblock %}

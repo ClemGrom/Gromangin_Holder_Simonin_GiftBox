@@ -1,0 +1,16 @@
+<html lang="fr">
+
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ base_path() }}/css/main-style.css" >
+</head>
+
+<body>
+    <div class="main">
+        <div class="header">{% include "gift.header.twig" %}</div>
+        <div class="nav">{% include "gift.nav.twig" %}</div>
+        <div class="content">{% block content %}{% endblock %}</div>
+        <div class="footer">{% include "gift.footer.twig" %}</div>
+    </div>
+</body>

@@ -1,0 +1,27 @@
+.main {
+    display: grid;
+    grid-template-columns: 10% 90%;
+    gap: 20px;
+}
+
+.header {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row: 1;
+}
+
+.nav {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.content {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.footer {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row: 3;
+}

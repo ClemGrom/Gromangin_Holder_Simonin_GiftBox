@@ -2,11 +2,11 @@
 
 namespace gift\app\models;
 
-use Illuminate\Database as eloq;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Prestation extends eloq\Eloquent\Model
+class Prestation extends Model
 {
     protected $table = 'prestation';
     protected $primaryKey = 'id';
@@ -22,6 +22,11 @@ class Prestation extends eloq\Eloquent\Model
     public function box(): BelongsToMany
     {
         return $this->belongsToMany(Box::class, 'box2presta', 'presta_id', 'box_id');
+    }
+
+    public function coffret(): BelongsTo
+    {
+        return $this->belongsTo(Coffret::class, 'id');
     }
 
 }

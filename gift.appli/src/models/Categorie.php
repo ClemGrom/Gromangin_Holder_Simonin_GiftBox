@@ -2,9 +2,10 @@
 
 namespace gift\app\models;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Categorie extends \Illuminate\Database\Eloquent\Model
+class Categorie extends Model
 {
     protected $table = 'categorie';
     protected $primaryKey = 'id';

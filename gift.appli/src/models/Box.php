@@ -2,9 +2,10 @@
 
 namespace gift\app\models;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Box extends \Illuminate\Database\Eloquent\Model
+class Box extends Model
 {
     protected $table = 'box';
     protected $primaryKey = 'id';
@@ -15,10 +16,14 @@ class Box extends \Illuminate\Database\Eloquent\Model
 
     const CREATED = 1;
 
-    public function prestations(): BelongsToMany {
     public function prestations(): BelongsToMany
     {
         return $this->belongsToMany(Prestation::class, 'box2presta', 'box_id', 'presta_id')->withPivot(['quantite']);
+    }
+
+    public function coffrets(): BelongsTo
+    {
+        return $this->belongsTo(Coffret::class, 'coffret_id');
     }
 
 }

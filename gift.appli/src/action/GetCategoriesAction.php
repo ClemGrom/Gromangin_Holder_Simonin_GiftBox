@@ -2,18 +2,18 @@
 
 namespace gift\app\action;
 
-use gift\app\services\prestations\PrestationsService;
+use gift\app\services\categories\CategoriesServices;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Slim\Psr7\Request;
-use Slim\Psr7\Response;
 use Slim\Views\Twig;
 
-class GetCategoriesAction {
+class GetCategoriesAction
+{
 
-    public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface {
+    public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
+    {
 
-        $p = new PrestationsService();
+        $p = new CategoriesServices();
         $categories = $p->getCategories();
 
         $view = Twig::fromRequest($rq);

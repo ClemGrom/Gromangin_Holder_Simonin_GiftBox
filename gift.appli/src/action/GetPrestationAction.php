@@ -2,22 +2,22 @@
 
 namespace gift\app\action;
 
-use gift\app\services\prestations\PrestationsService;
+use gift\app\services\prestations\PrestationsServices;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpBadRequestException;
-use Slim\Psr7\Request;
-use Slim\Psr7\Response;
 use Slim\Views\Twig;
 
-class GetPrestationAction {
+class GetPrestationAction
+{
 
-    public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface {
-        if(isset($_GET['id'])) {
+    public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
+    {
+        if (isset($_GET['id'])) {
             $id = $_GET['id'];
-            $p = new PrestationsService();
+            $p = new PrestationsServices();
             $prestation = $p->getPrestationById($rq, $id);
-        }else{
+        } else {
             throw new HttpBadRequestException($rq, "Identifiant absent");
         }
 

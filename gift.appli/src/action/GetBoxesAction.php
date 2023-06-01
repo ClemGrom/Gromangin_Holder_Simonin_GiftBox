@@ -5,9 +5,11 @@ namespace gift\app\action;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 
-class GetBoxesAction {
+class GetBoxesAction
+{
 
-    public function __invoke(Request $rq, Response $rs, array $args): Response {
+    public function __invoke(Request $rq, Response $rs, array $args): Response
+    {
         $html = <<<HTML
             <html>
             <head>

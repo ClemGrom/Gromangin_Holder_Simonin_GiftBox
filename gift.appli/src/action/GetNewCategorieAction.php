@@ -2,7 +2,6 @@
 
 namespace gift\app\action;
 
-use gift\app\services\prestations\PrestationsService;
 use gift\app\services\utils\CsrfService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

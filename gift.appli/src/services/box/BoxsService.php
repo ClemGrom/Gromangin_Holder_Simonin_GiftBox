@@ -6,7 +6,7 @@ use gift\app\models\Box;
 use gift\app\models\Categorie;
 use Ramsey\Uuid\Uuid;
 
-class BoxService {
+class BoxsService {
 
     function create(array $donnee) : void {
         $valide = true;

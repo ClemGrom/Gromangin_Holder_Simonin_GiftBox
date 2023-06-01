@@ -12,6 +12,6 @@ class Compte extends \Illuminate\Database\Eloquent\Model
 
     public function coffret(): BelongsTo
     {
-        return $this->belongsTo(Coffret::class, 'id');
+        return $this->belongsTo(Coffret::class, 'compte_id');
     }
 }

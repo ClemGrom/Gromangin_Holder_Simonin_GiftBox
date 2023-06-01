@@ -2,9 +2,10 @@
 
 namespace gift\app\models;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Coffret extends \Illuminate\Database\Eloquent\Model
+class Coffret extends Model
 {
     protected $table = 'coffret';
     protected $primaryKey = 'id';
@@ -20,7 +21,7 @@ class Coffret extends \Illuminate\Database\Eloquent\Model
         return $this->hasMany(Prestation::class, 'presta_id');
     }
 
-    public function boxs(): HasMany
+    public function boxes(): HasMany
     {
         return $this->hasMany(Box::class, 'box_id');
     }

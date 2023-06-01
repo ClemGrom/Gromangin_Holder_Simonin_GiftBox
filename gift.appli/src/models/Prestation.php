@@ -1,7 +1,9 @@
 <?php
 
 namespace gift\app\models;
-use \Illuminate\Database as eloq;
+
+use Illuminate\Database as eloq;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Prestation extends eloq\Eloquent\Model
@@ -12,11 +14,13 @@ class Prestation extends eloq\Eloquent\Model
     public $incrementing = false;
     public $keyType = 'string';
 
-    public function categorie(): eloq\Eloquent\Relations\BelongsTo {
+    public function categorie(): BelongsTo
+    {
         return $this->belongsTo(Categorie::class, 'cat_id');
     }
 
-    public function box(): BelongsToMany {
+    public function box(): BelongsToMany
+    {
         return $this->belongsToMany(Box::class, 'box2presta', 'presta_id', 'box_id');
     }
 

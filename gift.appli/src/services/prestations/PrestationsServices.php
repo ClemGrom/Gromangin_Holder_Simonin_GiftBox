@@ -13,11 +13,11 @@ class PrestationsServices {
 
 
 
-    function getPrestationById(Request $rq, string $id) : array {
+    function getPrestationById(string $id) : array {
         try{
             $prestation = Prestation::findOrFail($id);
         }catch (\Exception $e) {
-            throw new HttpNotFoundException($rq, "Prestation non trouvée");
+            throw new PrestationServiceNotFoundException("Prestation non trouvée");
         }
         return $prestation->toArray();
     }

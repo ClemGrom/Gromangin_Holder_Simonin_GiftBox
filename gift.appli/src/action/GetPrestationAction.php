@@ -16,7 +16,7 @@ class GetPrestationAction
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
             $p = new PrestationsServices();
-            $prestation = $p->getPrestationById($rq, $id);
+            $prestation = $p->getPrestationById($id);
         } else {
             throw new HttpBadRequestException($rq, "Identifiant absent");
         }

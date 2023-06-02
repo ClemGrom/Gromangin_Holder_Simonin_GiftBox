@@ -3,8 +3,8 @@
 namespace gift\app\models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Box extends Model
 {
@@ -22,9 +22,10 @@ class Box extends Model
         return $this->belongsToMany(Prestation::class, 'box2presta', 'box_id', 'presta_id')->withPivot(['quantite']);
     }
 
-    public function coffrets(): BelongsTo
+    public function comptes(): HasMany
     {
-        return $this->belongsTo(Coffret::class, 'coffret_id');
+        return $this->hasMany(Compte::class, 'compte_id');
     }
+
 
 }

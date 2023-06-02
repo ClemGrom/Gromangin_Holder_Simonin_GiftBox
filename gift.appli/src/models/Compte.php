@@ -2,16 +2,17 @@
 
 namespace gift\app\models;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Compte extends \Illuminate\Database\Eloquent\Model
+class Compte extends Model
 {
     protected $table = 'compte';
     protected $primaryKey = 'id';
     public $timestamps = false;
 
-    public function coffret(): BelongsTo
+    public function boxes(): BelongsTo
     {
-        return $this->belongsTo(Coffret::class, 'compte_id');
+        return $this->belongsTo(Box::class, 'compte_id');
     }
 }

@@ -25,9 +25,9 @@ class Prestation extends Model
         return $this->belongsToMany(Box::class, 'box2presta', 'presta_id', 'box_id');
     }
 
-    public function coffret(): BelongsTo
+    public function coffret(): BelongsToMany
     {
-        return $this->belongsTo(Coffret::class, 'id');
+        return $this->belongsToMany(Coffret::class, 'coffret2prestation', 'prestation_id', 'coffret_id');
     }
 
 }

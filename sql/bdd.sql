@@ -14,7 +14,8 @@ CREATE TABLE `box` (
                        `message_kdo` text NOT NULL DEFAULT '',
                        `statut` int(11) NOT NULL DEFAULT 1,
                        `url` varchar(256) DEFAULT NULL,
-                       `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp()
+                       `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp(),
+                       `updated_at` datetime NOT NULL
 );
 
 DROP TABLE IF EXISTS `box2presta`;
@@ -44,8 +45,8 @@ CREATE TABLE `prestation` (
                               `cat_id` int(11) NOT NULL
 );
 
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
+DROP TABLE IF EXISTS `compte`;
+CREATE TABLE `compte` (
     `id` varchar(128) NOT NULL,
     `email` varchar(128) NOT NULL,
     `password` varchar(128) NOT NULL

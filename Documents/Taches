@@ -1,15 +1,48 @@
 Clement :
-1
-2
-3
-5
+1 Afficher la liste des prestations
+• Toutes les prestations sont affichées, elles occupent toutes un espace identique
+• Pour chaque prestation : son nom, son prix, sa catégorie, 1 vignette photo
+
+2 Afficher le détail d'une prestation
+• L'id de la prestation est transmis dans l'URL
+• Toutes les caractéristiques de la prestation sont affichées, la photo est en taille normale
+• Un clic sur une prestation dans la liste permet d'afficher le détail de la prestation.
+
+3 Liste de prestations par catégories
+• Afficher la liste des prestations pour une catégorie donnée dont seules les prestations
+associées à cette catégorie sont affichées.
+
+5 Tri par prix
+• Lorsqu'une liste des prestations est affichée, trier les prestations par prix croissant/décroisant
 
 Jules :
-4
-8
-10
+4 Liste de catégories
+• Afficher la liste des catégories
+• Un clic sur un élément de la liste conduit à afficher la liste des prestations de cette catégorie
+
+8 Affichage d'un coffret
+• Le visiteur peut demander l'affichage du coffret qu'il a créé et qui est en cours de
+construction : liste des prestations, tarif de chaque prestation, montant total
+• Il est possible de retourner au catalogue et continuer à ajouter des prestations au coffret.
+
+10 Paiement d'un coffret
+• Une fois validé, un coffret peut être payé. Après confirmation du paiement, le créateur du
+coffret saisit ses données de paiement et confirme.
+• Le coffret est marqué comme "payé" dans la base de données
 
 Enzo :
-6
-7
-9
+6 Création d'un coffret vide
+• Un formulaire permettant de saisir les données liées à un coffret est affiché : nom et
+description du coffret, cadeau ou non, message en cas de cadeau
+• Le nouveau coffret devient le coffret courant pour l'ajout de prestations.
+
+7 Ajout de prestations dans le coffret
+• Le coffret est une sorte de panier de e-commerce : le visiteur peut ajouter des prestations
+
+9 Validation d'un coffret
+• Pour pouvoir être validé, le coffret doit contenir au moins 2 prestations, de 2 catégories
+différentes
+• Un coffret ne peut être validé que par son créateur-propriétaire,
+• Une fois validé, un coffret n'est plus modifiable ; notamment, il n'est plus possible d'ajouter
+de prestations ou de modifier les quantités. Le coffret est marqué comme "validé" dans la
+base de données.

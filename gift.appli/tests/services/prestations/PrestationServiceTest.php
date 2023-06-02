@@ -6,7 +6,8 @@ namespace gift\test\services\prestations;
 use Faker\Factory;
 use gift\app\models\Categorie;
 use gift\app\models\Prestation;
-use gift\app\services\prestations\PrestationsService;
+use gift\app\services\categories\CategoriesServices;
+use gift\app\services\prestations\PrestationsServices;
 use \PHPUnit\Framework\TestCase;
 use Illuminate\Database\Capsule\Manager as DB ;
 
@@ -47,12 +48,12 @@ final class PrestationServiceTest extends TestCase
         }
 
 
+
+
         self::$prestations[0]->categorie()->associate($c1); self::$prestations[0]->save();
         self::$prestations[1]->categorie()->associate($c1); self::$prestations[1]->save();
         self::$prestations[2]->categorie()->associate($c2); self::$prestations[2]->save();
         self::$prestations[3]->categorie()->associate($c2); self::$prestations[3]->save();
-
-
 
     }
 
@@ -70,7 +71,7 @@ final class PrestationServiceTest extends TestCase
 
     public function testgetCategories(): void {
 
-        $prestationService = new PrestationsService();
+        $prestationService = new CategoriesServices();
         $categories = $prestationService->getCategories();
 
         $this->assertEquals(count(self::$categories), count($categories));
@@ -84,7 +85,7 @@ final class PrestationServiceTest extends TestCase
 
     public function testgetCategoriesById(): void {
 
-        $prestationService = new PrestationsService();
+        $prestationService = new CategoriesServices();
         $categorie = $prestationService->getCategoriesById(self::$categories[0]['id']);
 
         $this->assertEquals(self::$categories[0]['id'], $categorie['id']);
@@ -96,7 +97,7 @@ final class PrestationServiceTest extends TestCase
     }
     public function testgetPrestationById(): void
     {
-        $prestationService = new PrestationsService();
+        $prestationService = new PrestationsServices();
         $prestation = $prestationService->getPrestationById(self::$prestations[0]['id']);
 
         $this->assertEquals(self::$prestations[0]['id'], $prestation['id']);

@@ -15,7 +15,7 @@ class CategoriesServices
         return $categories->toArray();
     }
 
-    function getCategoriesById(Request $rq, int $id): array
+    function getCategoriesById(int $id): array
     {
         try {
             return Categorie::findOrFail($id)->toArray();

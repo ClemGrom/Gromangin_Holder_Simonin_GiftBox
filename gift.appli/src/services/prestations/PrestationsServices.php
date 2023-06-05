@@ -7,7 +7,6 @@ use gift\app\models\Prestation;
 class PrestationsServices
 {
 
-
     function getPrestationById(string $id): array
     {
         try {

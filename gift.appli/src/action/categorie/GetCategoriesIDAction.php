@@ -1,6 +1,6 @@
 <?php
 
-namespace gift\app\action;
+namespace gift\app\action\categorie;
 
 use gift\app\services\categories\CategoriesServices;
 use gift\app\services\prestations\PrestationServiceNotFoundException;
@@ -18,7 +18,7 @@ class GetCategoriesIDAction
         $p = new CategoriesServices();
 
         try {
-            $categorie = $p->getCategoriesById($rq, $id);
+            $categorie = $p->getCategoriesById($id);
         } catch (PrestationServiceNotFoundException $e) {
             throw new HttpNotFoundException($rq, $e->getMessage());
         }

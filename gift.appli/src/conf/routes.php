@@ -1,16 +1,15 @@
 <?php
 
+use gift\app\action\categorie\GetCategoriesAction;
+use gift\app\action\categorie\GetCategoriesIDAction;
 use gift\app\action\GetAllPrestationsAction;
-use gift\app\action\GetNewEmptyBoxAction;
-use gift\app\action\GetCategoriesAction;
-use gift\app\action\GetCategoriesIDAction;
+use gift\app\action\GetBoxesAction;
 use gift\app\action\GetNewCategorieAction;
 use gift\app\action\GetPrestationAction;
 use gift\app\action\GetPrestationCategorieAction;
 use gift\app\action\PostNewCategorieAction;
-use gift\app\action\PostNewEmptyBoxAction;
 
-return function(\Slim\App $app):void {
+return function (\Slim\App $app): void {
 
     $app->get('/categories[/]', GetCategoriesAction::class)
         ->setName("categories");

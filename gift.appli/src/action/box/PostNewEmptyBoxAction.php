@@ -1,6 +1,6 @@
 <?php
 
-namespace gift\app\action;
+namespace gift\app\action\box;
 
 use gift\app\services\boxes\BoxServices;
 use gift\app\services\categories\CategoriesServices;

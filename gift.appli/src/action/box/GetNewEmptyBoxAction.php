@@ -1,6 +1,6 @@
 <?php
 
-namespace gift\app\action;
+namespace gift\app\action\box;
 
 use gift\app\services\utils\CsrfService;
 use Psr\Http\Message\ResponseInterface;

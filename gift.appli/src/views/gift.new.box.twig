@@ -1,0 +1,34 @@
+{% extends "gift.main.twig" %}
+
+{% block title %}Création d'une box vide{% endblock %}
+
+{% block content %}
+    <form method="post">
+        <div>
+            <label>Nom</label>
+            <input type="text" name="libelle">
+        </div>
+        <div>
+            <label>Description</label>
+            <input type="text" name="description">
+        </div>
+        <div>
+            <label>Cadeau ?</label>
+            <div>
+                <input type="radio" id="choiceYes"
+                       name="cadeau" value="oui">
+                <label for="choiceYes">Oui</label>
+
+                <input type="radio" id="choiceNo"
+                       name="cadeau" value="non">
+                <label for="choiceNo">Non</label>
+            </div>
+        </div>
+        <div>
+            <label>Message en cas de cadeau</label>
+            <input type="text" name="message">
+        </div>
+        <input type="hidden" name="csrf" value="{{ csrf }}">
+        <input type="submit" value="Envoyer">
+    </form>
+{% endblock %}

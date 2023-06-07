@@ -3,14 +3,10 @@
 {% block title %}Prestations{% endblock %}
 
 {% block content %}
-    <h1>Prestations</h1>
     {% for presta in prestations %}
-        <h1>{{ presta.libelle }}</h1>
-        <p>{{ presta.description }}</p>
-        <p>{{ presta.tarif }}</p>
-        <p>{{ presta.unite }}</p>
-        <p>{{ presta.id }}</p>
-        <li><a href="{{ url_for('prestation', {}, { 'id': presta.id }) }}">Lien vers la prestation</a></li>
-        <p>----------------</p>
+        <li><a class="links" href="{{ url_for('prestation', {}, { 'id': presta.id }) }}">{{ presta.libelle }}</a></li>
+        <p>Tarif : {{ presta.tarif }}</p>
+        <p>Categorie : {{ categories[presta.cat_id].libelle }}</p>
+        <img src="../../shared/img/{{ presta.img }}" width="300" height="300">
     {% endfor %}
 {% endblock %}

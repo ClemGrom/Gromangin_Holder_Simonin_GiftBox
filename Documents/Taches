@@ -1,4 +1,4 @@
-Clement :
+Clement : Fait
 1 Afficher la liste des prestations
 • Toutes les prestations sont affichées, elles occupent toutes un espace identique
 • Pour chaque prestation : son nom, son prix, sa catégorie, 1 vignette photo
@@ -31,7 +31,7 @@ coffret saisit ses données de paiement et confirme.
 • Le coffret est marqué comme "payé" dans la base de données
 
 Enzo :
-6 Création d'un coffret vide
+6 Création d'un coffret vide /////////// FAIT
 • Un formulaire permettant de saisir les données liées à un coffret est affiché : nom et
 description du coffret, cadeau ou non, message en cas de cadeau
 • Le nouveau coffret devient le coffret courant pour l'ajout de prestations.

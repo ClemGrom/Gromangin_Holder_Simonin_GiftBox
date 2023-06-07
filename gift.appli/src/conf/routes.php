@@ -2,7 +2,7 @@
 
 use gift\app\action\categorie\GetCategoriesAction;
 use gift\app\action\categorie\GetCategoriesIDAction;
-use gift\app\action\GetAllPrestationsAction;
+use gift\app\action\prestation\GetAllPrestationsAction;
 use gift\app\action\GetNewCategorieAction;
 use gift\app\action\box\GetNewEmptyBoxAction;
 use gift\app\action\GetPrestationAction;

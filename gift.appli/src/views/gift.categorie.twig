@@ -6,7 +6,7 @@
     <h1>Categories</h1>
     <ul>
         {% for categ in categories %}
-            <li><a href="{{ url_for('CategorieID', { 'id': categ.id }) }}">{{categ.libelle}}</a></li>
+            <li><a href="{{ url_for('categorieToPresta', { 'id': categ.id }) }}">{{categ.libelle}}</a></li>
         {% endfor %}
     </ul>
 {% endblock %}

@@ -1,9 +1,9 @@
-Clement : Fait
+Clement : ///////// Fait
 1 Afficher la liste des prestations
 • Toutes les prestations sont affichées, elles occupent toutes un espace identique
 • Pour chaque prestation : son nom, son prix, sa catégorie, 1 vignette photo
 
-2 Afficher le détail d'une prestation
+2 Afficher le détail d'une prestation : /////////// FAIT
 • L'id de la prestation est transmis dans l'URL
 • Toutes les caractéristiques de la prestation sont affichées, la photo est en taille normale
 • Un clic sur une prestation dans la liste permet d'afficher le détail de la prestation.

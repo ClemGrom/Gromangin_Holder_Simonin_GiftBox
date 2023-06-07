@@ -1,16 +1,11 @@
 {% extends "gift.main.twig" %}
 
-{% block title %}Categorie {{ categ_id }}{% endblock %}
+{% block title %}Prestations{% endblock %}
 
 {% block content %}
-    <h1>Prestations</h1>
-    {% for prestation in prestations %}
-        <p>{{ prestation.id }}</p>
-        <p>{{ prestation.libelle }}</p>
-        <p>{{ prestation.description }}</p>
-        <p>{{ prestation.tarif }}</p>
-        <p>{{ prestation.unite }}</p>
-        <a href="{{ url_for('prestation', {}, { 'id': prestation.id }) }}">Lien vers la prestation</a>
-        <p>----------------------</p>
+    {% for presta in prestations %}
+        <li><a class="links" href="{{ url_for('prestation', {}, { 'id': presta.id }) }}">{{ presta.libelle }}</a></li>
+        <p>Tarif : {{ presta.tarif }}</p>
+        <img src="../../../shared/img/{{ presta.img }}" width="300" height="300">
     {% endfor %}
 {% endblock %}

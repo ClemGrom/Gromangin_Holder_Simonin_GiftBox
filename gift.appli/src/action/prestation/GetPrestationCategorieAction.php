@@ -1,7 +1,8 @@
 <?php
 
-namespace gift\app\action;
+namespace gift\app\action\prestation;
 
+use gift\app\services\categories\CategoriesServices;
 use gift\app\services\prestations\PrestationsServices;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
@@ -17,10 +18,8 @@ class GetPrestationCategorieAction
         $prestations = $p->getPrestationByCategorie($id);
 
         $view = Twig::fromRequest($rq);
-        return $view->render($rs, 'gift.prestation.categorie.twig', [
-            'categ_id' => $id,
-            'prestations' => $prestations
-        ]);
+        return $view->render($rs, 'gift.prestation.categorie.twig',
+            ["prestations" => $prestations]);
     }
 
 }

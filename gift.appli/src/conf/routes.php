@@ -6,7 +6,7 @@ use gift\app\action\prestation\GetAllPrestationsAction;
 use gift\app\action\GetNewCategorieAction;
 use gift\app\action\box\GetNewEmptyBoxAction;
 use gift\app\action\prestation\GetPrestationAction;
-use gift\app\action\GetPrestationCategorieAction;
+use gift\app\action\prestation\GetPrestationCategorieAction;
 use gift\app\action\PostNewCategorieAction;
 use gift\app\action\box\PostNewEmptyBoxAction;
 

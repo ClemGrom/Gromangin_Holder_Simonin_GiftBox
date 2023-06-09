@@ -8,5 +8,6 @@
         <p>Tarif : {{ presta.tarif }}</p>
         <p>Categorie : {{ categories[presta.cat_id].libelle }}</p>
         <img src="../../shared/img/{{ presta.img }}" width="300" height="300">
+        <a href="{{ url_for('addPrestationToBox', {}, {'id': presta.id }) }}">Ajouter la prestation</a>
     {% endfor %}
 {% endblock %}

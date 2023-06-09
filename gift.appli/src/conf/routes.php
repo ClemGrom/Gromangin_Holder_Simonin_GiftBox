@@ -1,5 +1,6 @@
 <?php
 
+use gift\app\action\box\PostAddPrestationToBoxAction;
 use gift\app\action\categorie\GetCategoriesAction;
 use gift\app\action\categorie\GetCategoriesIDAction;
 use gift\app\action\prestation\GetAllPrestationsAction;
@@ -30,5 +31,7 @@ return function (\Slim\App $app): void {
 
     $app->get('/box/new[/]', GetNewEmptyBoxAction::class)->setName("newEmptyBox");
     $app->post('/box/new[/]', PostNewEmptyBoxAction::class);
+
+    $app->get('/prestation/add', PostAddPrestationToBoxAction::class)->setName("addPrestationToBox");
 
 };

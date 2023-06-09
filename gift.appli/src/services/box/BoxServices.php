@@ -1,12 +1,13 @@
 <?php
 
-namespace gift\app\services\boxes;
+namespace gift\app\services\box;
 
 use gift\app\models\Box;
+use gift\app\models\Prestation;
 use Ramsey\Uuid\Uuid;
+use Slim\Exception\HttpBadRequestException;
 
 class BoxServices {
-
     function setNewBox(array $donnee) : void {
         $valide = true;
         $box = new Box();
@@ -24,6 +25,21 @@ class BoxServices {
         $box->statut = Box::CREATED;
 
         $box->save();
+    }
+
+    function addPrestationToBox(String $prestaId) {
+        try{
+            $box = Box::where('statut', '=', Box::CREATED)->first() ;
+            $presta = Prestation::where('id', '=', $prestaId)->first();
+        }catch (BoxServiceException $e){
+            throw new HttpBadRequestException("Aucune box en cours de création ou la prestation n'existe pas");
+        }
+        if($box->prestations()->get()->contains($presta)){
+            $qte = $box->prestations()->get()->find($presta)->pivot->quantite;
+            $box->prestations()->updateExistingPivot($presta, ["quantite" =>  $qte + 1]);
+        }else{
+            $box->prestations()->attach($presta, ["quantite" => 1]);
+        }
     }
 
 }

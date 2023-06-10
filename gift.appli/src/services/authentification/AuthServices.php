@@ -7,7 +7,7 @@ use gift\app\models\User;
 class AuthServices
 {
 
-    public static function authenticate(string $email, string $passwd2check): void{
+    public function authenticate(string $email, string $passwd2check): void{
         $user = User::where('email', '=', $email)->first();
         if(!$user) throw new \Exception("Compte inexistant");
         if (!password_verify($passwd2check, $user->password))
@@ -24,7 +24,7 @@ class AuthServices
         }
     }
 
-    public static function register(string $email, string $pass): void
+    public function register(string $email, string $pass): void
     {
         if(User::where('email', '=', $email)->exists()) throw new \Exception("Compte déjà existant");
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) throw new \Exception("Email invalide");
@@ -36,5 +36,15 @@ class AuthServices
         $user->email = $email;
         $user->password = $hash;
         $user->save();
+    }
+
+    public function addBox(string $email, string $boxId): void
+    {
+        $user = User::where('email', '=', $email)->first();
+        if(!$user) throw new \Exception("Compte inexistant");
+        $user->box_id = $boxId;
+        $user->save();
+
+        $_SESSION['user'] = $user->toArray();
     }
 }

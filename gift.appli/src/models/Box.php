@@ -24,9 +24,9 @@ class Box extends Model
             ->withPivot('quantite');
     }
 
-    public function comptes(): HasMany
+    public function users(): HasMany
     {
-        return $this->hasMany(Compte::class, 'compte_id');
+        return $this->hasMany(User::class, 'box_id');
     }
 
 

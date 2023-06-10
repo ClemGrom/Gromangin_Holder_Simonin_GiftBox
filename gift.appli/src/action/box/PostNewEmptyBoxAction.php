@@ -2,7 +2,7 @@
 
 namespace gift\app\action\box;
 
-use gift\app\services\boxes\BoxServices;
+use gift\app\services\box\BoxServices;
 use gift\app\services\categories\CategoriesServices;
 use gift\app\services\utils\CsrfService;
 use gift\app\services\utils\TokenInvalid;

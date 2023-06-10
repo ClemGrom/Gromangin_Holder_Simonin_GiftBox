@@ -4,11 +4,17 @@ namespace gift\app\services\box;
 
 use gift\app\models\Box;
 use gift\app\models\Prestation;
+use gift\app\services\authentification\AuthServices;
 use Ramsey\Uuid\Uuid;
 use Slim\Exception\HttpBadRequestException;
 
 class BoxServices {
     function setNewBox(array $donnee) : void {
+
+        $user = $_SESSION['user'];
+        if($user == null) throw new HttpBadRequestException("Vous devez être connecté");
+        if($user['box_id'] != null) throw new HttpBadRequestException("Vous avez déjà une box en cours de création");
+
         $valide = true;
         $box = new Box();
 
@@ -23,6 +29,9 @@ class BoxServices {
 
         if (!$valide) throw new \Exception("Invalide");
         $box->statut = Box::CREATED;
+
+        $auth = new AuthServices();
+        $auth->addBox($user['email'], $box->id);
 
         $box->save();
     }

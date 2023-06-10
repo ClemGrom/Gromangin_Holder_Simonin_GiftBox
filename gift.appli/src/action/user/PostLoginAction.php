@@ -1,0 +1,37 @@
+<?php
+
+namespace gift\app\action\user;
+
+use gift\app\services\authentification\AuthServices;
+use gift\app\services\categories\CategoriesServices;
+use gift\app\services\utils\CsrfService;
+use gift\app\services\utils\TokenInvalid;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Slim\Exception\HttpBadRequestException;
+use Slim\Routing\RouteContext;
+use Slim\Views\Twig;
+
+class PostLoginAction
+{
+
+    public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
+    {
+        $post_data = $rq->getParsedBody();
+
+        try{
+            CsrfService::check($post_data['csrf']);
+        }catch(TokenInvalid $e) {
+            throw new HttpBadRequestException($rq, "token invalide");
+        }
+
+        $auth = new AuthServices();
+        $auth->authenticate($post_data['email'], $post_data['mdp']);
+
+        $routeParser = RouteContext::fromRequest($rq)->getRouteParser();
+        $url = $routeParser->urlFor('categories');
+        return $rs->withStatus(302)->withHeader('Location', $url);
+
+    }
+
+}

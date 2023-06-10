@@ -16,6 +16,7 @@ class Box extends Model
     public $fillable = ['id', 'token', 'libelle', 'description', 'montant', 'kdo', 'message_kdo', 'statut', 'created_at', 'updated_at'];
 
     const CREATED = 1;
+    const VALIDATED = 2;
 
     public function prestations(): BelongsToMany
     {

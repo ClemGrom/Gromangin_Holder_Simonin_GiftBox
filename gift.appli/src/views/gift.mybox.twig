@@ -1,0 +1,9 @@
+{% extends "gift.main.twig" %}
+
+{% block title %}Ma box{% endblock %}
+
+{% block content %}
+    <h1>Libelle : {{ box.libelle }}</h1>
+    <p>Description : {{ box.description }}</p>
+    <p>Prix total : {{ box.montant }}</p>
+{% endblock %}

@@ -20,11 +20,6 @@ Jules :
 • Afficher la liste des catégories
 • Un clic sur un élément de la liste conduit à afficher la liste des prestations de cette catégorie
 
-8 Affichage d'un coffret
-• Le visiteur peut demander l'affichage du coffret qu'il a créé et qui est en cours de
-construction : liste des prestations, tarif de chaque prestation, montant total
-• Il est possible de retourner au catalogue et continuer à ajouter des prestations au coffret.
-
 10 Paiement d'un coffret
 • Une fois validé, un coffret peut être payé. Après confirmation du paiement, le créateur du
 coffret saisit ses données de paiement et confirme.
@@ -34,15 +29,27 @@ Enzo :
 6 Création d'un coffret vide /////////// FAIT
 • Un formulaire permettant de saisir les données liées à un coffret est affiché : nom et
 description du coffret, cadeau ou non, message en cas de cadeau
-• Le nouveau coffret devient le coffret courant pour l'ajout de prestations.
+• Le nouveau coffret devient le coffret courant pour l'ajout de prestations. //////////// A modifier après ajout des comptes
 
 7 Ajout de prestations dans le coffret /////////// FAIT
 • Le coffret est une sorte de panier de e-commerce : le visiteur peut ajouter des prestations
 
+8 Affichage d'un coffret
+• Le visiteur peut demander l'affichage du coffret qu'il a créé et qui est en cours de
+construction : liste des prestations, tarif de chaque prestation, montant total //////// A modifier après ajout des comptes
+• Il est possible de retourner au catalogue et continuer à ajouter des prestations au coffret.
+
 9 Validation d'un coffret
 • Pour pouvoir être validé, le coffret doit contenir au moins 2 prestations, de 2 catégories
 différentes
-• Un coffret ne peut être validé que par son créateur-propriétaire,
+• Un coffret ne peut être validé que par son créateur-propriétaire,  //////////// A modifier après ajout des comptes
 • Une fois validé, un coffret n'est plus modifiable ; notamment, il n'est plus possible d'ajouter
 de prestations ou de modifier les quantités. Le coffret est marqué comme "validé" dans la
 base de données.
+
+15 Signin ///////// Fait
+• Un visiteur inscrit peut s'identifier : il fournit un mail et un mot de passe.
+
+16 Register //////////// Fait
+• Un visiteur peut s'inscrire pour avoir accès à la création de coffrets. Il fournit un mail et un
+mot de passe. L'unicité du mail et la robustesse du mot de passe sont contrôlés.

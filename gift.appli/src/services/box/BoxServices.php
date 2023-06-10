@@ -42,4 +42,13 @@ class BoxServices {
         }
     }
 
+    function getMyBox() : array {
+        try{
+            $box = Box::where('statut', '=', Box::CREATED)->first() ;
+        }catch (BoxServiceException $e){
+            throw new HttpBadRequestException("Aucune box en cours de création ou la prestation n'existe pas");
+        }
+        return $box->toArray();
+    }
+
 }

@@ -6,4 +6,14 @@
     <h1>Libelle : {{ box.libelle }}</h1>
     <p>Description : {{ box.description }}</p>
     <p>Prix total : {{ box.montant }}</p>
+    <br>
+    <h2>Prestations : </h2>
+    {% for presta in prestations %}
+        <p>Prestation : {{ presta.libelle }}</p>
+        <p>Prix : {{ presta.tarif }}</p>
+        <p>Quantite : {{ presta.pivot.quantite }}</p>
+        <br>
+    {% endfor %}
+    <br>
+    <a href="{{ url_for('prestations') }}">Ajouter des prestations</a>
 {% endblock %}

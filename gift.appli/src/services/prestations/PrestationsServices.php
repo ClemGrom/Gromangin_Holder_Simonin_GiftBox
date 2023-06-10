@@ -2,6 +2,7 @@
 
 namespace gift\app\services\prestations;
 
+use gift\app\models\Box;
 use gift\app\models\Prestation;
 
 class PrestationsServices
@@ -44,6 +45,13 @@ class PrestationsServices
         $prestation = Prestation::findOrFail($prestationID);
         $prestation->categorie()->associate($categorieID);
         $prestation->save();
+    }
+
+    function getPrestationByBox(string $box_id): array
+    {
+        $box = Box::find($box_id);
+        $prestations = $box->prestations()->get();
+        return $prestations->toArray();
     }
 
 

@@ -34,9 +34,9 @@ description du coffret, cadeau ou non, message en cas de cadeau
 7 Ajout de prestations dans le coffret /////////// FAIT
 • Le coffret est une sorte de panier de e-commerce : le visiteur peut ajouter des prestations
 
-8 Affichage d'un coffret
+8 Affichage d'un coffret //////////// FAIT
 • Le visiteur peut demander l'affichage du coffret qu'il a créé et qui est en cours de
-construction : liste des prestations, tarif de chaque prestation, montant total //////// A modifier après ajout des comptes
+construction : liste des prestations, tarif de chaque prestation, montant total
 • Il est possible de retourner au catalogue et continuer à ajouter des prestations au coffret.
 
 9 Validation d'un coffret

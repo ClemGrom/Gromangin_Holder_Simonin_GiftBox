@@ -37,8 +37,10 @@ class BoxServices {
     }
 
     function addPrestationToBox(String $prestaId) {
+        $user = $_SESSION['user'];
+        if($user == null) throw new HttpBadRequestException("Vous devez être connecté");
         try{
-            $box = Box::where('statut', '=', Box::CREATED)->first() ;
+            $box = Box::where('id', '=', $user['box_id'])->first();
             $presta = Prestation::where('id', '=', $prestaId)->first();
         }catch (BoxServiceException $e){
             throw new HttpBadRequestException("Aucune box en cours de création ou la prestation n'existe pas");
@@ -49,11 +51,15 @@ class BoxServices {
         }else{
             $box->prestations()->attach($presta, ["quantite" => 1]);
         }
+        $box->montant = $box->montant + $presta->tarif;
+        $box->save();
     }
 
     function getMyBox() : array {
+        $user = $_SESSION['user'];
+        if($user == null) throw new HttpBadRequestException("Vous devez être connecté");
         try{
-            $box = Box::where('statut', '=', Box::CREATED)->first() ;
+            $box = Box::where('id', '=', $user['box_id'])->first();
         }catch (BoxServiceException $e){
             throw new HttpBadRequestException("Aucune box en cours de création ou la prestation n'existe pas");
         }

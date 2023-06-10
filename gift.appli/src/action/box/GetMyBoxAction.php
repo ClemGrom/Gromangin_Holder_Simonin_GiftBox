@@ -3,6 +3,7 @@
 namespace gift\app\action\box;
 
 use gift\app\services\box\BoxServices;
+use gift\app\services\prestations\PrestationsServices;
 use gift\app\services\utils\CsrfService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -16,9 +17,12 @@ class GetMyBoxAction
         $b = new BoxServices();
         $box = $b->getMyBox();
 
+        $p = new PrestationsServices();
+        $prestations = $p->getPrestationByBox($box['id']);
+
         $view = Twig::fromRequest($rq);
         return $view->render($rs, 'gift.mybox.twig', [
-            "box" => $box
+            "box" => $box, "prestations" => $prestations
         ]);
     }
 

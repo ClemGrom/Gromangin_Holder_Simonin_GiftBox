@@ -1,4 +1,4 @@
-{% extends "gift.main.twig" %}
+{% extends "./main/gift.main.twig" %}
 
 {% block title %}Ma box{% endblock %}
 
@@ -13,9 +13,11 @@
         <p>Prestation : {{ presta.libelle }}</p>
         <p>Prix : {{ presta.tarif }}</p>
         <p>Quantite : {{ presta.pivot.quantite }}</p>
+        <a href="{{ url_for('deletePresta', {}, {id: presta.id}) }}">Supprimer la prestation</a>
         <br>
     {% endfor %}
     <br>
     <a href="{{ url_for('prestations') }}">Ajouter des prestations</a>
     <a href="{{ url_for('validateBox', {}, {}) }}">Valider la box</a>
+    <a href="{{ url_for('pay', {}, {}) }}">Payer</a>
 {% endblock %}

@@ -22,7 +22,7 @@ class GetPrestationAction
         }
 
         $view = Twig::fromRequest($rq);
-        return $view->render($rs, 'gift.prestation.twig', [
+        return $view->render($rs, 'prestation/gift.prestation.twig', [
             'prestation' => $prestation
         ]);
     }

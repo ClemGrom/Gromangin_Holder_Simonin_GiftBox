@@ -18,7 +18,7 @@ class GetPrestationCategorieAction
         $prestations = $p->getPrestationByCategorie($id);
 
         $view = Twig::fromRequest($rq);
-        return $view->render($rs, 'gift.prestation.categorie.twig',
+        return $view->render($rs, 'prestation/gift.prestation.categorie.twig',
             ["prestations" => $prestations]);
     }
 

@@ -43,6 +43,17 @@ différentes
 de prestations ou de modifier les quantités. Le coffret est marqué comme "validé" dans la
 base de données.
 
+10 Paiement d'un coffret ////////// FAIT
+• Une fois validé, un coffret peut être payé. Après confirmation du paiement, le créateur du
+coffret saisit ses données de paiement et confirme.
+• Le coffret est marqué comme "payé" dans la base de données.
+
+11 Modification d'un coffret : suppression de prestations ////////////// FAIT
+• Lorsqu'un coffret est affiché, il est possible de supprimer une prestation ajoutée dans ce
+coffret
+• La liste des prestations et le montant du coffret sont mis à jour et affichés.
+• Seul le créateur du coffret peut modifier le coffret.
+
 15 Signin ///////// Fait
 • Un visiteur inscrit peut s'identifier : il fournit un mail et un mot de passe.
 

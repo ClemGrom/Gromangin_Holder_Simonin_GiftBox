@@ -26,7 +26,16 @@ class PostLoginAction
         }
 
         $auth = new AuthServices();
-        $auth->authenticate($post_data['email'], $post_data['mdp']);
+        try{
+            $auth->authenticate($post_data['email'], $post_data['mdp']);
+        }catch(\Exception $e){
+            $token = CsrfService::generate();
+            $view = Twig::fromRequest($rq);
+            return $view->render($rs, 'user/gift.login.twig', [
+                'csrf' => $token,
+                'error' => $e->getMessage()
+            ]);
+        }
 
         $routeParser = RouteContext::fromRequest($rq)->getRouteParser();
         $url = $routeParser->urlFor('categories');

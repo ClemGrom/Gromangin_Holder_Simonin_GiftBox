@@ -24,7 +24,7 @@ class GetCategoriesIDAction
         }
 
         $view = Twig::fromRequest($rq);
-        return $view->render($rs, 'gift.categorie.id.twig', $categorie);
+        return $view->render($rs, 'categorie/gift.categorie.id.twig', $categorie);
     }
 
 }

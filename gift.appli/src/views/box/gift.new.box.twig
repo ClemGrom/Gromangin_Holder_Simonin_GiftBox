@@ -1,4 +1,4 @@
-{% extends "gift.main.twig" %}
+{% extends "./main/gift.main.twig" %}
 
 {% block title %}Création d'une box vide{% endblock %}
 
@@ -6,21 +6,21 @@
     <form method="post">
         <div>
             <label>Nom</label>
-            <input type="text" name="libelle">
+            <input type="text" name="libelle" required>
         </div>
         <div>
             <label>Description</label>
-            <input type="text" name="description">
+            <input type="text" name="description" required>
         </div>
         <div>
             <label>Cadeau ?</label>
             <div>
                 <input type="radio" id="choiceYes"
-                       name="cadeau" value="oui">
+                       name="cadeau" value="oui" required>
                 <label for="choiceYes">Oui</label>
 
                 <input type="radio" id="choiceNo"
-                       name="cadeau" value="non">
+                       name="cadeau" value="non" required>
                 <label for="choiceNo">Non</label>
             </div>
         </div>

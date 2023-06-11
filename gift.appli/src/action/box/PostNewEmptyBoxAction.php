@@ -35,7 +35,16 @@ class PostNewEmptyBoxAction
         }
 
         $p = new BoxServices();
-        $p->setNewBox($box);
+        try{
+            $p->setNewBox($box);
+        }catch(\Exception $e){
+            $token = CsrfService::generate();
+            $view = Twig::fromRequest($rq);
+            return $view->render($rs, 'main/gift.error.twig', [
+                'csrf' => $token,
+                'error' => $e->getMessage()
+            ]);
+        }
 
         $routeParser = RouteContext::fromRequest($rq)->getRouteParser();
         $url = $routeParser->urlFor('categories');

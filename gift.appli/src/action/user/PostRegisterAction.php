@@ -26,10 +26,19 @@ class PostRegisterAction
         }
 
         $auth = new AuthServices();
-        $auth->register($post_data['email'], $post_data['mdp']);
+        try{
+            $auth->register($post_data['email'], $post_data['mdp']);
+        }catch(\Exception $e){
+            $token = CsrfService::generate();
+            $view = Twig::fromRequest($rq);
+            return $view->render($rs, 'user/gift.register.twig', [
+                'csrf' => $token,
+                'error' => $e->getMessage()
+            ]);
+        }
 
         $routeParser = RouteContext::fromRequest($rq)->getRouteParser();
-        $url = $routeParser->urlFor('categories');
+        $url = $routeParser->urlFor('login');
         return $rs->withStatus(302)->withHeader('Location', $url);
 
     }

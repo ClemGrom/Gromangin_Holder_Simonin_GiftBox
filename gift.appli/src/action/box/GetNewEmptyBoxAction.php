@@ -15,7 +15,7 @@ class GetNewEmptyBoxAction
         $token = CsrfService::generate();
 
         $view = Twig::fromRequest($rq);
-        return $view->render($rs, 'gift.new.box.twig', [
+        return $view->render($rs, 'box/gift.new.box.twig', [
             'csrf' => $token
         ]);
     }

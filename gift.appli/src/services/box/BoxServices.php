@@ -9,11 +9,16 @@ use Ramsey\Uuid\Uuid;
 use Slim\Exception\HttpBadRequestException;
 
 class BoxServices {
+
+    function getConnection() {
+        if(!isset($_SESSION['user'])) throw new \Exception("Vous n'êtes pas connecté");
+    }
+
     function setNewBox(array $donnee) : void {
 
+        $this->getConnection();
         $user = $_SESSION['user'];
-        if($user == null) throw new HttpBadRequestException("Vous devez être connecté");
-        if($user['box_id'] != null) throw new HttpBadRequestException("Vous avez déjà une box en cours de création");
+        if($user['box_id'] != null) throw new \Exception("Vous avez déjà une box en cours de création");
 
         $valide = true;
         $box = new Box();
@@ -27,28 +32,24 @@ class BoxServices {
             $box->message_kdo = ($donnee['message'] == filter_var($donnee['message'])) ? $donnee['message'] : $valide = false;
         }
 
-        if (!$valide) throw new \Exception("Invalide");
+        if (!$valide) throw new \Exception("Box invalide");
         $box->statut = Box::CREATED;
 
         $auth = new AuthServices();
-        $auth->addBox($user['email'], $box->id);
+        $auth->addBox($box->id);
 
         $box->save();
     }
 
     function addPrestationToBox(String $prestaId) {
-        if(isset($_SESSION['user'])){
-            $user = $_SESSION['user'];
-        }else {
-            throw new \Exception("Vous devez être connecté");
-        }
-        try{
-            $box = Box::where('id', '=', $user['box_id'])->first();
-            $presta = Prestation::where('id', '=', $prestaId)->first();
-        }catch (BoxServiceException $e){
-            throw new HttpBadRequestException("Aucune box en cours de création ou la prestation n'existe pas");
-        }
-        if($box->statut != Box::CREATED) throw new HttpBadRequestException("La box n'est pas en cours de création");
+        $this->getConnection();
+        $user = $_SESSION['user'];
+
+        $box = Box::where('id', '=', $user['box_id'])->first();
+        if($box == null) throw new \Exception("Vous n'avez pas de box en cours de création");
+
+        $presta = Prestation::where('id', '=', $prestaId)->first();
+        if($box->statut != Box::CREATED) throw new \Exception("La box n'est plus en cours de création");
         if($box->prestations()->get()->contains($presta)){
             $qte = $box->prestations()->get()->find($presta)->pivot->quantite;
             $box->prestations()->updateExistingPivot($presta, ["quantite" =>  $qte + 1]);
@@ -60,34 +61,25 @@ class BoxServices {
     }
 
     function getMyBox() : array {
-        if(isset($_SESSION['user'])){
-            $user = $_SESSION['user'];
-        }else {
-            throw new \Exception("Vous devez être connecté");
-        }
-        try{
-            $box = Box::where('id', '=', $user['box_id'])->first();
-        }catch (BoxServiceException $e){
-            throw new HttpBadRequestException("Aucune box en cours de création ou la prestation n'existe pas");
-        }
+        $this->getConnection();
+        $user = $_SESSION['user'];
+        $box = Box::where('id', '=', $user['box_id'])->first();
+        if($box == null) throw new \Exception("Vous n'avez pas de box en cours de création");
         return $box->toArray();
     }
 
     function validate() : void {
-        if(isset($_SESSION['user'])){
-            $user = $_SESSION['user'];
-        }else {
-            throw new \Exception("Vous devez être connecté");
-        }
+        $this->getConnection();
+        $user = $_SESSION['user'];
         $box = Box::where('id', '=', $user['box_id'])->first();
-        // récupérer les pivots de la box
+
         $prestations = $box->prestations()->get();
         $prestations = $prestations->toArray();
         $categorieId = [];
         $valide = true;
         if(count($prestations) < 2) $valide = false;
         foreach ($prestations as $prestation){
-            // verifier si les prestations sont dans des catégories différentes
+
             if(!in_array($prestation['cat_id'], $categorieId)){
                 array_push($categorieId, $prestation['cat_id']);
             }
@@ -97,7 +89,7 @@ class BoxServices {
             $box->statut = Box::VALIDATED;
             $box->save();
         }else {
-            throw new \Exception("La box n'est pas valide");
+            throw new \Exception("La box n'est pas valide, il faut au moins 2 prestations de 2 catégories différentes");
         }
     }
 
@@ -110,10 +102,36 @@ class BoxServices {
             case 2:
                 $res = "Validée";
                 break;
+            case 3:
+                $res = "Payée";
+                break;
             default:
                 $res = "Inconnu";
         }
         return $res;
+    }
+
+    function verificationCoffretValide($boxId) : void {
+        $box = Box::where('id', '=', $boxId)->first();
+        if($box->statut != 2) throw new \Exception("La box n'est pas validée ou est déjà payée");
+    }
+
+    function pay() : void {
+        $this->getConnection();
+        $user = $_SESSION['user'];
+        $box = Box::where('id', '=', $user['box_id'])->first();
+        $box->statut = Box::PAYED;
+        $box->save();
+    }
+
+    function deletePrestation($prestationId) : void {
+        $this->getConnection();
+        $user = $_SESSION['user'];
+        $box = Box::where('id', '=', $user['box_id'])->first();
+        $prestation = Prestation::where('id', '=', $prestationId)->first();
+        $box->montant = $box->montant - $prestation->tarif * $box->prestations()->get()->find($prestation)->pivot->quantite;
+        $box->prestations()->detach($prestation);
+        $box->save();
     }
 
 }

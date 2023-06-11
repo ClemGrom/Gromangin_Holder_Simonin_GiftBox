@@ -15,13 +15,21 @@ class GetMyBoxAction
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
         $b = new BoxServices();
-        $box = $b->getMyBox();
+        try{
+            $box = $b->getMyBox();
+        }catch(\Exception $e){
+            $view = Twig::fromRequest($rq);
+            return $view->render($rs, 'main/gift.error.twig', [
+                'error' => $e->getMessage()
+            ]);
+        }
+
         $status = $b->statusBox($box['id']);
         $p = new PrestationsServices();
         $prestations = $p->getPrestationByBox($box['id']);
 
         $view = Twig::fromRequest($rq);
-        return $view->render($rs, 'gift.mybox.twig', [
+        return $view->render($rs, 'box/gift.mybox.twig', [
             "box" => $box, "prestations" => $prestations, "status" => $status
         ]);
     }

@@ -1,7 +1,8 @@
 <?php
 
-namespace gift\app\action;
+namespace gift\app\action\box;
 
+use gift\app\services\box\BoxServices;
 use gift\app\services\categories\CategoriesServices;
 use gift\app\services\utils\CsrfService;
 use gift\app\services\utils\TokenInvalid;
@@ -10,20 +11,13 @@ use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
-use const gift\app\conf\basePath;
 
-class PostNewCategorieAction
+class PostPayAction
 {
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-
         $post_data = $rq->getParsedBody();
-
-        $categorie = array(
-            'libelle' => $post_data['libelle'],
-            'description' => $post_data['description']
-        );
 
         try{
             CsrfService::check($post_data['csrf']);
@@ -31,12 +25,20 @@ class PostNewCategorieAction
             throw new HttpBadRequestException($rq, "token invalide");
         }
 
-        $p = new CategoriesServices();
-        $p->setNewCategorie($categorie);
+        $b = new BoxServices();
+        try{
+            $b->pay();
+        }catch(\Exception $e){
+            $view = Twig::fromRequest($rq);
+            return $view->render($rs, 'main/gift.error.twig', [
+                'error' => $e->getMessage()
+            ]);
+        }
 
         $routeParser = RouteContext::fromRequest($rq)->getRouteParser();
-        $url = $routeParser->urlFor('categories');
+        $url = $routeParser->urlFor('myBox');
         return $rs->withStatus(302)->withHeader('Location', $url);
+
     }
 
 }

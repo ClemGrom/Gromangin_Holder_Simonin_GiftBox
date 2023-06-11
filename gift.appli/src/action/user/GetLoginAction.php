@@ -15,7 +15,7 @@ class GetLoginAction
         $token = CsrfService::generate();
 
         $view = Twig::fromRequest($rq);
-        return $view->render($rs, 'gift.login.twig', [
+        return $view->render($rs, 'user/gift.login.twig', [
             'csrf' => $token
         ]);
     }

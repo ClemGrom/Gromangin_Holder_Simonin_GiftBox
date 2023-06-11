@@ -6,6 +6,7 @@
     <h1>Libelle : {{ box.libelle }}</h1>
     <p>Description : {{ box.description }}</p>
     <p>Prix total : {{ box.montant }}</p>
+    <p>Etat : {{ status }}</p>
     <br>
     <h2>Prestations : </h2>
     {% for presta in prestations %}
@@ -16,4 +17,5 @@
     {% endfor %}
     <br>
     <a href="{{ url_for('prestations') }}">Ajouter des prestations</a>
+    <a href="{{ url_for('validateBox', {}, {}) }}">Valider la box</a>
 {% endblock %}

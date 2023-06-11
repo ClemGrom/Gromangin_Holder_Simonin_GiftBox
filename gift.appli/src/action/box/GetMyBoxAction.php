@@ -16,13 +16,13 @@ class GetMyBoxAction
     {
         $b = new BoxServices();
         $box = $b->getMyBox();
-
+        $status = $b->statusBox($box['id']);
         $p = new PrestationsServices();
         $prestations = $p->getPrestationByBox($box['id']);
 
         $view = Twig::fromRequest($rq);
         return $view->render($rs, 'gift.mybox.twig', [
-            "box" => $box, "prestations" => $prestations
+            "box" => $box, "prestations" => $prestations, "status" => $status
         ]);
     }
 

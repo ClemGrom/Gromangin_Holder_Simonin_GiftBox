@@ -1,6 +1,7 @@
 <?php
 
 use gift\app\action\box\GetMyBoxAction;
+use gift\app\action\box\GetValidateBoxAction;
 use gift\app\action\box\PostAddPrestationToBoxAction;
 use gift\app\action\user\GetLoginAction;
 use gift\app\action\user\PostLoginAction;
@@ -39,6 +40,7 @@ return function (\Slim\App $app): void {
     $app->get('/box/new[/]', GetNewEmptyBoxAction::class)->setName("newEmptyBox");
     $app->post('/box/new[/]', PostNewEmptyBoxAction::class);
     $app->get('/box[/]', GetMyBoxAction::class)->setName("myBox");
+    $app->get('/box/validate[/]', GetValidateBoxAction::class)->setName("validateBox");
 
 
     // USER

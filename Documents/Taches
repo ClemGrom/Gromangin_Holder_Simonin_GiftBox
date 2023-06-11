@@ -1,5 +1,5 @@
-Clement : ///////// Fait
-1 Afficher la liste des prestations
+Clement :
+1 Afficher la liste des prestations ///////// Fait
 • Toutes les prestations sont affichées, elles occupent toutes un espace identique
 • Pour chaque prestation : son nom, son prix, sa catégorie, 1 vignette photo
 
@@ -8,22 +8,18 @@ Clement : ///////// Fait
 • Toutes les caractéristiques de la prestation sont affichées, la photo est en taille normale
 • Un clic sur une prestation dans la liste permet d'afficher le détail de la prestation.
 
+
+
+Jules :
 3 Liste de prestations par catégories //////// Fait
 • Afficher la liste des prestations pour une catégorie donnée dont seules les prestations
 associées à cette catégorie sont affichées.
 
-5 Tri par prix
-• Lorsqu'une liste des prestations est affichée, trier les prestations par prix croissant/décroisant
-
-Jules :
 4 Liste de catégories //////////// FAIT
 • Afficher la liste des catégories
 • Un clic sur un élément de la liste conduit à afficher la liste des prestations de cette catégorie
 
-10 Paiement d'un coffret
-• Une fois validé, un coffret peut être payé. Après confirmation du paiement, le créateur du
-coffret saisit ses données de paiement et confirme.
-• Le coffret est marqué comme "payé" dans la base de données
+
 
 Enzo :
 6 Création d'un coffret vide /////////// FAIT
@@ -39,10 +35,10 @@ description du coffret, cadeau ou non, message en cas de cadeau
 construction : liste des prestations, tarif de chaque prestation, montant total
 • Il est possible de retourner au catalogue et continuer à ajouter des prestations au coffret.
 
-9 Validation d'un coffret
+9 Validation d'un coffret //////////// FAIT
 • Pour pouvoir être validé, le coffret doit contenir au moins 2 prestations, de 2 catégories
 différentes
-• Un coffret ne peut être validé que par son créateur-propriétaire,  //////////// A modifier après ajout des comptes
+• Un coffret ne peut être validé que par son créateur-propriétaire,
 • Une fois validé, un coffret n'est plus modifiable ; notamment, il n'est plus possible d'ajouter
 de prestations ou de modifier les quantités. Le coffret est marqué comme "validé" dans la
 base de données.

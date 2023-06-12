@@ -8,6 +8,7 @@ use gift\app\action\box\GetPrefilledBoxCreate;
 use gift\app\action\user\GetLogoutAction;
 use gift\app\action\box\GetMyBoxAction;
 use gift\app\action\box\GetPayAction;
+use gift\app\action\box\GetPurchasedBoxAction;
 use gift\app\action\box\GetValidateBoxAction;
 use gift\app\action\box\PostAddPrestationToBoxAction;
 use gift\app\action\box\PostPayAction;
@@ -67,6 +68,8 @@ return function (\Slim\App $app): void {
     $app->get('/box/delete[/]', GetDeletePrestaAction::class)->setName("deletePresta");
     // Ajouter une prestation à la box
     $app->get('/prestation/add', PostAddPrestationToBoxAction::class)->setName("addPrestationToBox");
+    //Visualiser une box achetée
+    $app->get('/box/{token:\d}', GetPurchasedBoxAction::class)->setName("purchasedBox");
     // Afficher les box préremplies
     $app->get('/box/prefilled[/]', GetPrefilledBoxAction::class)->setName("premadeBox");
     // Visualiser une box

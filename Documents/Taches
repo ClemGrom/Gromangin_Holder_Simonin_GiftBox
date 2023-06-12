@@ -79,7 +79,7 @@ mot de passe. L'unicité du mail et la robustesse du mot de passe sont contrôl�
 détente, box sport, box culture ...
 • Il est possible d'afficher cette liste et d'afficher le détail de chaque box.
 
-19 Créer un coffret prérempli à partir d'une box
+19 Créer un coffret prérempli à partir d'une box /////////// FAIT
 • Il est possible de créer un coffret pré-rempli à partir d'une box prédéfinie. Les prestations et
 leurs quantités prévues dans la box sont automatiquement ajoutées au nouveau coffret.
 • La création d'un coffret pré-rempli peut se faire avec le formulaire de création de coffrets :

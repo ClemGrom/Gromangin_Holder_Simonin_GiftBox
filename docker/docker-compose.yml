@@ -1,0 +1,46 @@
+version: "3"
+
+networks:
+  gift.net:
+    driver: bridge
+
+services:
+
+  php:
+    hostname: serveur
+    image: canals/php
+    ports:
+      - "81:80"
+    volumes:
+      - ../gift.appli/public:/var/www/html
+      - ../shared/img:/var/www/html/img
+      - ../gift.appli/src:/var/www/src
+    working_dir: /var/www/src
+    networks:
+      - gift.net
+    depends_on:
+      - sql
+
+  sql:
+    hostname: mysql
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./.databases:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - gift.net
+
+  phpmyadmin:
+    hostname: php-my-admin
+    image: phpmyadmin
+    environment:
+      - PMA_HOST=sql
+    ports:
+      - "82:80"
+    networks:
+      - gift.net
+    depends_on:
+      - sql

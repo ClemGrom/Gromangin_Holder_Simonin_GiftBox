@@ -9,7 +9,7 @@ use Slim\Views\TwigMiddleware;
 
 $app = AppFactory::create();
 $app->addRoutingMiddleware();
-$app->setBasePath("/Dev/Gromangin_Holder_Simonin_GiftBox/gift.appli/public");
+$app->setBasePath("/GiftBox");
 $app->addErrorMiddleware(true, false, false);
 
 $twig = Twig::create("../src/views",

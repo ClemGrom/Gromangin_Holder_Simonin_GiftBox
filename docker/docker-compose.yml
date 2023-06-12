@@ -44,3 +44,17 @@ services:
       - gift.net
     depends_on:
       - sql
+
+  api:
+    hostname: serveur
+    image: canals/php
+    ports:
+      - 8080:80
+    volumes:
+      - ../gift.api/public:/var/www/html
+      - ../gift.api/src:/var/www/src
+    working_dir: /var/www/src
+    networks:
+      - gift.net
+    depends_on:
+      - sql

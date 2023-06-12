@@ -5,6 +5,7 @@ use gift\app\action\box\GetDeletePrestaAction;
 use gift\app\action\box\GetMyBoxesAction;
 use gift\app\action\box\GetPrefilledBoxAction;
 use gift\app\action\box\GetPrefilledBoxCreate;
+use gift\app\action\GetCategoriesApiAction;
 use gift\app\action\user\GetLogoutAction;
 use gift\app\action\box\GetMyBoxAction;
 use gift\app\action\box\GetPayAction;

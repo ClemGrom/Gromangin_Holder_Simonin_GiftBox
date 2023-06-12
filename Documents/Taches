@@ -8,7 +8,8 @@ Clement :
 • Toutes les caractéristiques de la prestation sont affichées, la photo est en taille normale
 • Un clic sur une prestation dans la liste permet d'afficher le détail de la prestation.
 
-
+5 Tri par prix /////////// FAIT
+• Lorsqu'une liste des prestations est affichée, trier les prestations par prix croissant/décroisant
 
 Jules :
 3 Liste de prestations par catégories //////// Fait
@@ -84,3 +85,19 @@ détente, box sport, box culture ...
 leurs quantités prévues dans la box sont automatiquement ajoutées au nouveau coffret.
 • La création d'un coffret pré-rempli peut se faire avec le formulaire de création de coffrets :
 un champ permet de choisir une box, ou de la laisser vide.
+
+21 Api : liste des prestations /////////// FAIT
+• L'api retourne la liste des prestations en format JSON en réponse à la requête
+GET /api/prestations
+
+22 Api : liste des catégories /////////// FAIT
+• L'api retourne la liste des catégories en format JSON en réponse à la requête
+GET /api/categories
+
+23 Api : liste des prestations d'une catégorie /////////// FAIT
+• L'api retourne la liste des prestations d'une catégorie en format JSON en réponse à la requête
+GET /api/categories/{id}/prestations
+
+24 Api : accès à un coffret /////////// FAIT
+• L'api retourne le contenu d'un coffret en format JSON en réponse à la requête
+GET /api/coffrets/{id}

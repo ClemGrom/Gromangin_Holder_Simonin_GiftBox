@@ -49,6 +49,14 @@ class BoxServices {
             $box->message_kdo = ($donnee['message'] == filter_var($donnee['message'])) ? $donnee['message'] : $valide = false;
         }
 
+        if($donnee['boxDef'] != "vide"){
+            $boxDef = Box::where('id', '=', $donnee['boxDef'])->first();
+            $prestations = $boxDef->prestations()->get();
+            foreach ($prestations as $prestation) {
+                $box->prestations()->attach($prestation, ["quantite" => $boxDef->prestations()->get()->find($prestation)->pivot->quantite]);
+            }
+        }
+
         if (!$valide) throw new \Exception("Box invalide");
         $box->statut = Box::CREATED;
         $user = $_SESSION['user'];
@@ -149,15 +157,30 @@ class BoxServices {
         return $boxes->toArray();
     }
 
-    function createPrefilledBox($id) : array {
+    function createPrefilledBox($id) {
         $this->getConnection();
-        $user = $_SESSION['user'];
-        $box = $this->boxEnCreation();
-        if($box != null) throw new \Exception("Vous avez déjà une box en cours de création");
-        $box = Box::where('token', '=', $id)->first();
-        $box->statut = Box::CREATED;
-        $box->save();
-        return $box->toArray();
+        $boxes = $this->boxUser();
+        $boxEnCours = $boxes->where('statut', '=', Box::CREATED)->first();
+        if($boxEnCours != null) throw new \Exception("Vous avez déjà une box en cours de création");
+
+        $box = Box::where('id', '=', $id)->first();
+        $newBox = new Box();
+        $newBox->id = Uuid::uuid4()->toString();
+        $newBox->token = base_convert(hash('sha256', time() . mt_rand()), 16, 36);
+        $newBox->libelle = $box->libelle;
+        $newBox->description = $box->description;
+        $newBox->kdo = $box->kdo;
+        $newBox->message_kdo = $box->message_kdo;
+        $newBox->statut = Box::CREATED;
+        $newBox->montant = $box->montant;
+        $newBox->user_email = $_SESSION['user']['email'];
+
+        $prestations = $box->prestations()->get();
+        foreach ($prestations as $prestation) {
+            $newBox->prestations()->attach($prestation, ["quantite" => $box->prestations()->get()->find($prestation)->pivot->quantite]);
+        }
+
+        $newBox->save();
     }
 
     function getBoxOfUser($email) : array {

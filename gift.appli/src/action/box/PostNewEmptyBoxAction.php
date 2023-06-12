@@ -25,7 +25,8 @@ class PostNewEmptyBoxAction
             'libelle' => $post_data['libelle'],
             'description' => $post_data['description'],
             'kdo' => $post_data['cadeau'],
-            'message' => $post_data['message']
+            'message' => $post_data['message'],
+            'boxDef' => $post_data['box'],
         );
 
         try{
@@ -47,7 +48,7 @@ class PostNewEmptyBoxAction
         }
 
         $routeParser = RouteContext::fromRequest($rq)->getRouteParser();
-        $url = $routeParser->urlFor('categorie');
+        $url = $routeParser->urlFor('myBox');
         return $rs->withStatus(302)->withHeader('Location', $url);
 
     }

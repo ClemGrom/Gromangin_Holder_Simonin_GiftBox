@@ -27,7 +27,7 @@ class PostPayAction
 
         $b = new BoxServices();
         try{
-            $b->pay();
+            $b->pay($_GET['id']);
         }catch(\Exception $e){
             $view = Twig::fromRequest($rq);
             return $view->render($rs, 'main/gift.error.twig', [
@@ -36,7 +36,7 @@ class PostPayAction
         }
 
         $routeParser = RouteContext::fromRequest($rq)->getRouteParser();
-        $url = $routeParser->urlFor('myBox');
+        $url = $routeParser->urlFor('mesBox');
         return $rs->withStatus(302)->withHeader('Location', $url);
 
     }

@@ -29,7 +29,7 @@ class GetValidateBoxAction
         }
 
         $routeParser = RouteContext::fromRequest($rq)->getRouteParser();
-        $url = $routeParser->urlFor('myBox');
+        $url = $routeParser->urlFor('mesBox');
         return $rs->withStatus(302)->withHeader('Location', $url);
 
     }

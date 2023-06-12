@@ -8,28 +8,19 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Views\Twig;
 
-class GetPayAction
+class GetPrefilledBoxCreate
 {
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
         $token = CsrfService::generate();
 
-        $user = $_SESSION['user'];
-
         $b = new BoxServices();
-        try{
-            $b->verificationCoffretValide($_GET['id']);
-        }catch(\Exception $e){
-            $view = Twig::fromRequest($rq);
-            return $view->render($rs, 'main/gift.error.twig', [
-                'error' => $e->getMessage()
-            ]);
-        }
+        $box = $b->createPrefilledBox($_GET['id']);
 
         $view = Twig::fromRequest($rq);
-        return $view->render($rs, 'box/gift.pay.twig', [
-            'csrf' => $token
+        return $view->render($rs, 'box/gift.new.box.prefilled.twig', [
+            'csrf' => $token, 'box' => $box
         ]);
     }
 

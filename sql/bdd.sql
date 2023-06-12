@@ -14,6 +14,7 @@ CREATE TABLE `box` (
                        `message_kdo` text NOT NULL DEFAULT '',
                        `statut` int(11) NOT NULL DEFAULT 1,
                        `url` varchar(256) DEFAULT NULL,
+                       `user_email` varchar(128) DEFAULT NULL,
                        `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp(),
                        `updated_at` datetime NOT NULL
 );
@@ -48,6 +49,5 @@ CREATE TABLE `prestation` (
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
     `email` varchar(128) NOT NULL,
-    `password` varchar(128) NOT NULL,
-    `box_id` varchar(128) NOT NULL
+    `password` varchar(128) NOT NULL
 );

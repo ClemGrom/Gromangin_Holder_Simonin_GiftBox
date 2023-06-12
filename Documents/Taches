@@ -54,14 +54,6 @@ coffret
 • La liste des prestations et le montant du coffret sont mis à jour et affichés.
 • Seul le créateur du coffret peut modifier le coffret.
 
-13 Génération de l'URL d'accès
-• Une fois le coffret payé, le créateur de la pochette peut demander à l'application de générer
-une URL d'accès au coffret. Cette URL est unique et difficile à deviner. Elle permet de
-consulter et d'utiliser la coffret
-• Le token associé à l'URL est stocké dans la base.
-• Pour un coffret validé et payé, une seule URL peut être générée
-• Pour un coffret validé et payé, une seule URL peut être générée
-
 15 Signin ///////// Fait
 • Un visiteur inscrit peut s'identifier : il fournit un mail et un mot de passe.
 
@@ -73,3 +65,9 @@ mot de passe. L'unicité du mail et la robustesse du mot de passe sont contrôl�
 • L'application propose une liste des boxs prédéfinies contenant une liste des prestations : box
 détente, box sport, box culture ...
 • Il est possible d'afficher cette liste et d'afficher le détail de chaque box.
+
+19 Créer un coffret prérempli à partir d'une box
+• Il est possible de créer un coffret pré-rempli à partir d'une box prédéfinie. Les prestations et
+leurs quantités prévues dans la box sont automatiquement ajoutées au nouveau coffret.
+• La création d'un coffret pré-rempli peut se faire avec le formulaire de création de coffrets :
+un champ permet de choisir une box, ou de la laisser vide.

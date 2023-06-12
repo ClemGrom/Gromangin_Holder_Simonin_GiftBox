@@ -4,21 +4,38 @@ namespace gift\app\services\box;
 
 use gift\app\models\Box;
 use gift\app\models\Prestation;
+use gift\app\models\User;
 use gift\app\services\authentification\AuthServices;
 use Ramsey\Uuid\Uuid;
 use Slim\Exception\HttpBadRequestException;
 
 class BoxServices {
 
-    function getConnection() {
+    function getConnection() : array {
         if(!isset($_SESSION['user'])) throw new \Exception("Vous n'êtes pas connecté");
+        return $_SESSION['user'];
     }
 
-    function setNewBox(array $donnee) : void {
-
+    function boxUser() {
         $this->getConnection();
         $user = $_SESSION['user'];
-        if($user['box_id'] != null) throw new \Exception("Vous avez déjà une box en cours de création");
+        return Box::where('user_email', '=', $user['email'])->get();
+    }
+
+    function boxEnCreation() {
+        $boxes = $this->boxUser();
+        $box = $boxes->where('statut', '=', Box::CREATED)->first();
+        if($box == null) throw new \Exception("Vous n'avez pas de box en cours de création");
+        return $box;
+    }
+
+    function setNewBox(array $donnee) : void
+    {
+
+        $box = $this->boxUser();
+        foreach ($box as $b) {
+            if($b['statut'] == Box::CREATED) throw new \Exception("Vous avez déjà une box en cours de création");
+        }
 
         $valide = true;
         $box = new Box();
@@ -34,19 +51,14 @@ class BoxServices {
 
         if (!$valide) throw new \Exception("Box invalide");
         $box->statut = Box::CREATED;
-
-        $auth = new AuthServices();
-        $auth->addBox($box->id);
-
+        $user = $_SESSION['user'];
+        $box->user_email = $user['email'];
         $box->save();
     }
 
     function addPrestationToBox(String $prestaId) {
-        $this->getConnection();
+        $box = $this->boxEnCreation();
         $user = $_SESSION['user'];
-
-        $box = Box::where('id', '=', $user['box_id'])->first();
-        if($box == null) throw new \Exception("Vous n'avez pas de box en cours de création");
 
         $presta = Prestation::where('id', '=', $prestaId)->first();
         if($box->statut != Box::CREATED) throw new \Exception("La box n'est plus en cours de création");
@@ -61,10 +73,7 @@ class BoxServices {
     }
 
     function getMyBox() : array {
-        $this->getConnection();
-        $user = $_SESSION['user'];
-        $box = Box::where('id', '=', $user['box_id'])->first();
-        if($box == null) throw new \Exception("Vous n'avez pas de box en cours de création");
+        $box = $this->boxEnCreation();
         return $box->toArray();
     }
 
@@ -74,9 +83,7 @@ class BoxServices {
     }
 
     function validate() : void {
-        $this->getConnection();
-        $user = $_SESSION['user'];
-        $box = Box::where('id', '=', $user['box_id'])->first();
+        $box = $this->boxEnCreation();
 
         $prestations = $box->prestations()->get();
         $prestations = $prestations->toArray();
@@ -121,18 +128,16 @@ class BoxServices {
         if($box->statut != 2) throw new \Exception("La box n'est pas validée ou est déjà payée");
     }
 
-    function pay() : void {
-        $this->getConnection();
+    function pay($id) : void {
         $user = $_SESSION['user'];
-        $box = Box::where('id', '=', $user['box_id'])->first();
+        $box = Box::where('id', '=', $id)->first();
         $box->statut = Box::PAYED;
         $box->save();
     }
 
     function deletePrestation($prestationId) : void {
-        $this->getConnection();
         $user = $_SESSION['user'];
-        $box = Box::where('id', '=', $user['box_id'])->first();
+        $box = $this->boxEnCreation();
         $prestation = Prestation::where('id', '=', $prestationId)->first();
         $box->montant = $box->montant - $prestation->tarif * $box->prestations()->get()->find($prestation)->pivot->quantite;
         $box->prestations()->detach($prestation);
@@ -141,6 +146,22 @@ class BoxServices {
 
     function getPrefilledBox() : array {
         $boxes = Box::where('token', 'like', '%=')->get();
+        return $boxes->toArray();
+    }
+
+    function createPrefilledBox($id) : array {
+        $this->getConnection();
+        $user = $_SESSION['user'];
+        $box = $this->boxEnCreation();
+        if($box != null) throw new \Exception("Vous avez déjà une box en cours de création");
+        $box = Box::where('token', '=', $id)->first();
+        $box->statut = Box::CREATED;
+        $box->save();
+        return $box->toArray();
+    }
+
+    function getBoxOfUser($email) : array {
+        $boxes = Box::where('user_email', '=', $email)->get();
         return $boxes->toArray();
     }
 

@@ -14,4 +14,10 @@
         <p>Quantite : {{ presta.pivot.quantite }}</p>
         <br>
     {% endfor %}
+    {% if not box.user_email %}
+        <a href="{{ url_for('newCoffretPrefilled', {}, {id: box.id}) }}">Créer un coffret prérempli</a>
+    {% endif %}
+    {% if box.user_email %}
+        <a href="{{ url_for('pay', {}, {id: box.id}) }}">Payer</a>
+    {% endif %}
 {% endblock %}

@@ -2,7 +2,9 @@
 
 use gift\app\action\box\GetBoxAction;
 use gift\app\action\box\GetDeletePrestaAction;
+use gift\app\action\box\GetMyBoxesAction;
 use gift\app\action\box\GetPrefilledBoxAction;
+use gift\app\action\box\GetPrefilledBoxCreate;
 use gift\app\action\user\GetLogoutAction;
 use gift\app\action\box\GetMyBoxAction;
 use gift\app\action\box\GetPayAction;
@@ -69,6 +71,10 @@ return function (\Slim\App $app): void {
     $app->get('/box/prefilled[/]', GetPrefilledBoxAction::class)->setName("premadeBox");
     // Visualiser une box
     $app->get('/box', GetBoxAction::class)->setName("box");
+    // Créer un coffret à partir d'une box préremplie
+    $app->get('/box/prefilled/create', GetPrefilledBoxCreate::class)->setName("newCoffretPrefilled");
+    // Visualiser mes boxes
+    $app->get('/box/myBoxes[/]', GetMyBoxesAction::class)->setName("mesBox");
 
     /*
      * USER

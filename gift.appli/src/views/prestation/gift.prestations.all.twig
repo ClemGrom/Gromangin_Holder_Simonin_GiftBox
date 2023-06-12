@@ -2,7 +2,11 @@
 
 {% block title %}Prestations{% endblock %}
 
+
 {% block content %}
+    <a href="{{ url_for('prestationsTrieCroiss') }}">Trier les prestations par prix croissant</a>
+    <a href="{{ url_for('prestationsTrieDecroiss') }}">Trier les prestations par prix décroissant</a>
+
     {% for presta in prestations %}
         <li><a class="links" href="{{ url_for('prestation', {}, { 'id': presta.id }) }}">{{ presta.libelle }}</a></li>
         <p>Tarif : {{ presta.tarif }}</p>

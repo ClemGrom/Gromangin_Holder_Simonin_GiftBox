@@ -18,6 +18,8 @@ use gift\app\action\prestation\GetPrestationAction;
 use gift\app\action\prestation\GetPrestationCategorieAction;
 use gift\app\action\box\PostNewEmptyBoxAction;
 use gift\app\action\user\GetRegisterAction;
+use gift\app\action\prestation\GetPrestationPrixCroissantAction;
+use gift\app\action\prestation\GetPrestationPrixDecroissantAction;
 
 return function (\Slim\App $app): void {
 
@@ -26,6 +28,10 @@ return function (\Slim\App $app): void {
      */
     // Visualiser les prestations
     $app->get('/prestations', GetAllPrestationsAction::class)->setName("prestations");
+    //test
+    $app->get('/prestationsTrieCroiss', GetPrestationPrixCroissantAction::class)->setName("prestationsTrieCroiss");
+
+    $app->get('/prestationsTrieDecroiss', GetPrestationPrixDecroissantAction::class)->setName("prestationsTrieDecroiss");
     // Visualiser une prestation
     $app->get('/prestation', GetPrestationAction::class)->setName("prestation");
     // Visualiser les prestations d'une catégorie

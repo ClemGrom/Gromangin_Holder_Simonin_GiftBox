@@ -1,6 +1,8 @@
 <?php
 
+use gift\app\action\box\GetBoxAction;
 use gift\app\action\box\GetDeletePrestaAction;
+use gift\app\action\box\GetPrefilledBoxAction;
 use gift\app\action\user\GetLogoutAction;
 use gift\app\action\box\GetMyBoxAction;
 use gift\app\action\box\GetPayAction;
@@ -18,6 +20,8 @@ use gift\app\action\prestation\GetPrestationAction;
 use gift\app\action\prestation\GetPrestationCategorieAction;
 use gift\app\action\box\PostNewEmptyBoxAction;
 use gift\app\action\user\GetRegisterAction;
+use gift\app\action\prestation\GetPrestationPrixCroissantAction;
+use gift\app\action\prestation\GetPrestationPrixDecroissantAction;
 
 return function (\Slim\App $app): void {
 
@@ -26,6 +30,10 @@ return function (\Slim\App $app): void {
      */
     // Visualiser les prestations
     $app->get('/prestations', GetAllPrestationsAction::class)->setName("prestations");
+    //test
+    $app->get('/prestationsTrieCroiss', GetPrestationPrixCroissantAction::class)->setName("prestationsTrieCroiss");
+
+    $app->get('/prestationsTrieDecroiss', GetPrestationPrixDecroissantAction::class)->setName("prestationsTrieDecroiss");
     // Visualiser une prestation
     $app->get('/prestation', GetPrestationAction::class)->setName("prestation");
     // Visualiser les prestations d'une catégorie
@@ -46,8 +54,8 @@ return function (\Slim\App $app): void {
     // Creation Box
     $app->get('/box/new[/]', GetNewEmptyBoxAction::class)->setName("newEmptyBox");
     $app->post('/box/new[/]', PostNewEmptyBoxAction::class);
-    // Visualiser Box
-    $app->get('/box[/]', GetMyBoxAction::class)->setName("myBox");
+    // Visualiser ma Box
+    $app->get('/box/my[/]', GetMyBoxAction::class)->setName("myBox");
     // Valider Box
     $app->get('/box/validate[/]', GetValidateBoxAction::class)->setName("validateBox");
     // Payer Box
@@ -57,6 +65,10 @@ return function (\Slim\App $app): void {
     $app->get('/box/delete[/]', GetDeletePrestaAction::class)->setName("deletePresta");
     // Ajouter une prestation à la box
     $app->get('/prestation/add', PostAddPrestationToBoxAction::class)->setName("addPrestationToBox");
+    // Afficher les box préremplies
+    $app->get('/box/prefilled[/]', GetPrefilledBoxAction::class)->setName("premadeBox");
+    // Visualiser une box
+    $app->get('/box', GetBoxAction::class)->setName("box");
 
     /*
      * USER

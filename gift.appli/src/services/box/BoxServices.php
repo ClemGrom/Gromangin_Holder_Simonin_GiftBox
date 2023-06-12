@@ -68,6 +68,11 @@ class BoxServices {
         return $box->toArray();
     }
 
+    function getBox($id) : array {
+        $box = Box::where('id', '=', $id)->first();
+        return $box->toArray();
+    }
+
     function validate() : void {
         $this->getConnection();
         $user = $_SESSION['user'];
@@ -132,6 +137,11 @@ class BoxServices {
         $box->montant = $box->montant - $prestation->tarif * $box->prestations()->get()->find($prestation)->pivot->quantite;
         $box->prestations()->detach($prestation);
         $box->save();
+    }
+
+    function getPrefilledBox() : array {
+        $boxes = Box::where('token', 'like', '%=')->get();
+        return $boxes->toArray();
     }
 
 }

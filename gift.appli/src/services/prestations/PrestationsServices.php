@@ -30,10 +30,40 @@ class PrestationsServices
         return $prestations->toArray();
     }
 
+    function modifyPrestation(array $modif): void
+    {
+        $prestation = Prestation::findOrFail($modif['id']);
+        $prestation->libelle = $modif['libelle'];
+        $prestation->description = $modif['description'];
+        $prestation->tarif = $modif['tarif'];
+        $prestation->unite = $modif['unite'];
+        $prestation->save();
+    }
+
+    function defineOrModifyCategorieOfPrestation(int $prestationID, int $categorieID): void
+    {
+        $prestation = Prestation::findOrFail($prestationID);
+        $prestation->categorie()->associate($categorieID);
+        $prestation->save();
+    }
+
     function getPrestationByBox(string $box_id): array
     {
         $box = Box::find($box_id);
         $prestations = $box->prestations()->get();
+        return $prestations->toArray();
+    }
+
+
+    function getPrestationTriePrixCroissant(): array
+    {
+        $prestations = Prestation::orderBy('tarif')->get();
+        return $prestations->toArray();
+    }
+
+    function getPrestationTriePrixDecroissant(): array
+    {
+        $prestations = Prestation::orderByDesc('tarif')->get();
         return $prestations->toArray();
     }
 

@@ -36,9 +36,9 @@ return function (\Slim\App $app): void {
      * CATEGORIES
      */
     // Visualiser les catégories
-    $app->get('/categories[/]', GetCategoriesAction::class)->setName("categories");
+    $app->get('/categorie[/]', GetCategoriesAction::class)->setName("categorie");
     // Visualiser une catégorie
-    $app->get('/categories/{id:\d}', GetCategoriesIDAction::class)->setName("CategorieID");
+    $app->get('/categorie/{id:\d}', GetCategoriesIDAction::class)->setName("CategorieID");
 
     /*
      * BOX

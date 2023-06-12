@@ -38,7 +38,7 @@ class PostLoginAction
         }
 
         $routeParser = RouteContext::fromRequest($rq)->getRouteParser();
-        $url = $routeParser->urlFor('categories');
+        $url = $routeParser->urlFor('categorie');
         return $rs->withStatus(302)->withHeader('Location', $url);
 
     }

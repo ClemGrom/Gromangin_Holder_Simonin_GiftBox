@@ -21,7 +21,7 @@ class GetAllPrestationsAction
 
         $view = Twig::fromRequest($rq);
         return $view->render($rs, 'prestation/gift.prestations.all.twig',
-            ["prestations" => $prestations, "categories" => $categories]);
+            ["prestations" => $prestations, "categorie" => $categories]);
     }
 
 }

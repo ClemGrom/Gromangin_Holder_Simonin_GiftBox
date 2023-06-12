@@ -60,7 +60,7 @@ class __TwigTemplate_fee923509153973b2b293b5a17a20a0b extends Template
         ";
         // line 8
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable(($context["categories"] ?? null));
+        $context['_seq'] = twig_ensure_traversable(($context["categorie"] ?? null));
         foreach ($context['_seq'] as $context["_key"] => $context["categ"]) {
             // line 9
             echo "            <li><a href=\"";

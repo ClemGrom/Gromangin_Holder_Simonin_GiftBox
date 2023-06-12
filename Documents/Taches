@@ -54,6 +54,11 @@ coffret
 • La liste des prestations et le montant du coffret sont mis à jour et affichés.
 • Seul le créateur du coffret peut modifier le coffret.
 
+12 Modification d'un coffret : modification des quantités
+• Lorsqu'un coffret est affiché, il est possible de modifier les quantités de chaque prestation.
+• Le montant total est recalculé.
+• Seul le créateur du coffret peut modifier le coffret
+
 15 Signin ///////// Fait
 • Un visiteur inscrit peut s'identifier : il fournit un mail et un mot de passe.
 

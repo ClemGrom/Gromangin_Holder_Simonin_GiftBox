@@ -47,11 +47,11 @@ class __TwigTemplate_67423d00fb2b4ab78c690a5dbead8cff extends Template
 <div id=\"nav\">
     <a href=\"";
         // line 9
-        echo twig_escape_filter($this->env, $this->env->getRuntime('Slim\Views\TwigRuntimeExtension')->urlFor("categories"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getRuntime('Slim\Views\TwigRuntimeExtension')->urlFor("categorie"), "html", null, true);
         echo "\">GiftBox</a>
     <a href=\"";
         // line 10
-        echo twig_escape_filter($this->env, $this->env->getRuntime('Slim\Views\TwigRuntimeExtension')->urlFor("categories"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getRuntime('Slim\Views\TwigRuntimeExtension')->urlFor("categorie"), "html", null, true);
         echo "\">Categories</a>
     <a href=\"";
         // line 11

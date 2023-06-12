@@ -29,7 +29,7 @@ class PostAddPrestationToBoxAction
         }
 
         $routeParser = RouteContext::fromRequest($rq)->getRouteParser();
-        $url = $routeParser->urlFor('prestations');
+        $url = $routeParser->urlFor('myBox');
         return $rs->withStatus(302)->withHeader('Location', $url);
 
     }

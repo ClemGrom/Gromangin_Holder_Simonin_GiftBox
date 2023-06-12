@@ -12,7 +12,13 @@
                 <p>Montant : {{ box.montant }}</p>
             {% endif %}
             <a href="{{ url_for('box', {}, {id: box.id}) }}">Visualiser la box</a>
-            <p>Status : {{ box.statut }}</p>
+            {% if box.statut == 1 %}
+                <p>Status : En cours de création</p>
+            {% elseif box.statut == 2 %}
+                <p>Status : Validée</p>
+            {% elseif box.statut == 3 %}
+                <p>Status : Payée</p>
+            {% endif %}
             <br>
         {% endfor %}
     </ul>

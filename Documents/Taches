@@ -75,6 +75,11 @@ coffret
 • Un visiteur peut s'inscrire pour avoir accès à la création de coffrets. Il fournit un mail et un
 mot de passe. L'unicité du mail et la robustesse du mot de passe sont contrôlés.
 
+17 Accéder à ses coffrets /////////// FAIT
+• Un visiteur authentifié peut accéder à la liste des coffrets qu'il a créé et afficher chaque
+coffret.
+• En fonction de leurs états, les coffrets peuvent être modifiés.
+
 18 Afficher les box prédéfinies /////////// FAIT
 • L'application propose une liste des boxs prédéfinies contenant une liste des prestations : box
 détente, box sport, box culture ...
@@ -101,3 +106,9 @@ GET /api/categories/{id}/prestations
 24 Api : accès à un coffret /////////// FAIT
 • L'api retourne le contenu d'un coffret en format JSON en réponse à la requête
 GET /api/coffrets/{id}
+
+A faire:
+13 et 14 de jules
+12
+17
+20

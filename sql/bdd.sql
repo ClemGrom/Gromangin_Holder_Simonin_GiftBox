@@ -45,9 +45,9 @@ CREATE TABLE `prestation` (
                               `cat_id` int(11) NOT NULL
 );
 
-DROP TABLE IF EXISTS `compte`;
-CREATE TABLE `compte` (
-    `id` varchar(128) NOT NULL,
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
     `email` varchar(128) NOT NULL,
-    `password` varchar(128) NOT NULL
+    `password` varchar(128) NOT NULL,
+    `box_id` varchar(128) NOT NULL
 );

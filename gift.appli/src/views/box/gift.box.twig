@@ -5,12 +5,20 @@
 {% block content %}
     <h1>Libelle : {{ box.libelle }}</h1>
     <p>Description : {{ box.description }}</p>
-    <p>Prix total : {{ box.montant }}</p>
+    {% if box.kdo==true %}
+        {{ box.message_kdo }}
+    {% endif %}
+
+    {% if box.kdo==false %}
+        <p>Prix total : {{ box.montant }}</p>
+    {% endif %}
     <br>
     <h2>Prestations : </h2>
     {% for presta in prestations %}
         <p>Prestation : {{ presta.libelle }}</p>
-        <p>Prix : {{ presta.tarif }}</p>
+        {% if box.kdo==false %}
+            <p>Prix : {{ presta.tarif }}</p>
+        {% endif %}
         <p>Quantite : {{ presta.pivot.quantite }}</p>
         <br>
     {% endfor %}

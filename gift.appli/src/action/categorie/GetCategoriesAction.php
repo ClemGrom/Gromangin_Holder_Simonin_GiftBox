@@ -18,7 +18,7 @@ class GetCategoriesAction
 
         $view = Twig::fromRequest($rq);
         return $view->render($rs, 'categorie/gift.categorie.twig', [
-            'categorie' => $categories
+            'categories' => $categories
         ]);
     }
 

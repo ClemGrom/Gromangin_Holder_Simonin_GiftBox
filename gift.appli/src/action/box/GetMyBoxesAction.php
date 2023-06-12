@@ -15,7 +15,14 @@ class GetMyBoxesAction
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
         $b = new BoxServices();
-        $box = $b->getBoxOfUser($_SESSION['user']['email']);
+        try{
+            $box = $b->getBoxOfUser();
+        }catch(\Exception $e){
+            $view = Twig::fromRequest($rq);
+            return $view->render($rs, 'main/gift.error.twig', [
+                'error' => $e->getMessage()
+            ]);
+        }
 
         $view = Twig::fromRequest($rq);
         return $view->render($rs, 'box/gift.my.boxes.twig', [

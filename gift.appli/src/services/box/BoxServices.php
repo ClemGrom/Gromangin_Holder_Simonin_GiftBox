@@ -183,8 +183,9 @@ class BoxServices {
         $newBox->save();
     }
 
-    function getBoxOfUser($email) : array {
-        $boxes = Box::where('user_email', '=', $email)->get();
+    function getBoxOfUser() : array {
+        $user = $this->getConnection();
+        $boxes = Box::where('user_email', '=', $user['email'])->get();
         return $boxes->toArray();
     }
 

@@ -47,9 +47,6 @@ final class PrestationServiceTest extends TestCase
             array_push(self::$prestations, $p);
         }
 
-
-
-
         self::$prestations[0]->categorie()->associate($c1); self::$prestations[0]->save();
         self::$prestations[1]->categorie()->associate($c1); self::$prestations[1]->save();
         self::$prestations[2]->categorie()->associate($c2); self::$prestations[2]->save();
@@ -68,33 +65,6 @@ final class PrestationServiceTest extends TestCase
 
     }
 
-
-    public function testgetCategories(): void {
-
-        $prestationService = new CategoriesServices();
-        $categories = $prestationService->getCategories();
-
-        $this->assertEquals(count(self::$categories), count($categories));
-        $this->assertEquals(self::$categories[0]['id'], $categories[0]['id']);
-        $this->assertEquals(self::$categories[0]['libelle'], $categories[0]['libelle']);
-        $this->assertEquals(self::$categories[0]['description'], $categories[0]['description']);
-        $this->assertEquals(self::$categories[1]['libelle'], $categories[1]['libelle']);
-        $this->assertEquals(self::$categories[1]['description'], $categories[1]['description']);
-        $this->assertEquals(self::$categories[1]['id'], $categories[1]['id']);
-    }
-
-    public function testgetCategoriesById(): void {
-
-        $prestationService = new CategoriesServices();
-        $categorie = $prestationService->getCategoriesById(self::$categories[0]['id']);
-
-        $this->assertEquals(self::$categories[0]['id'], $categorie['id']);
-        $this->assertEquals(self::$categories[0]['libelle'], $categorie['libelle']);
-        $this->assertEquals(self::$categories[0]['description'], $categorie['description']);
-
-        $this->expectException(\gift\app\services\prestations\PrestationServiceNotFoundException::class);
-        $prestationService->getCategoriesById(-1);
-    }
     public function testgetPrestationById(): void
     {
         $prestationService = new PrestationsServices();

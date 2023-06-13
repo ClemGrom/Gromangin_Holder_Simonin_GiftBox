@@ -74,7 +74,7 @@ charset=utf8
 collation=utf8_unicode_ci
 ```
  * Sur phpmyadmin créez une base de données vide 
- * Utilisez la commande :
+ * Pour tester les presations utilisez la commande :
 ```
 gift.appli/src/vendor/bin/phpunit gift.appli/tests/services/prestations/PrestationServiceTest.php
 ```

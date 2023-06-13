@@ -93,7 +93,14 @@ class BoxServices {
             $box->prestations()->attach($presta, ["quantite" => $qte]);
         }
 
-        $box->montant = $box->montant + ($presta->tarif * $qte);
+        // calculer le montant à partir des prestations
+        $prestations = $box->prestations()->get();
+        // calculer le prix de toutes les prestations
+        $montant = 0;
+        foreach ($prestations as $prestation){
+            $montant += ($prestation->tarif * $prestation->pivot->quantite);
+        }
+        $box->montant = $montant;
         $box->save();
     }
 

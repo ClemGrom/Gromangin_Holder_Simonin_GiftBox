@@ -28,6 +28,8 @@ database=le_nom_de_votre_base_de_donnée
 charset=utf8
 collation=utf8_unicode_ci
 ```
+Dans le fichier "gift.api/src/conf/db.conf.ini" modifiez la ligne host=sql par host=localhost:3306
+
 
 ### Lancement du projet avec docker :
 Dans le dossier "docker" utilisez la commande : 
@@ -52,6 +54,12 @@ composer install
 Rendez-vous sur l'URL :
 ```
 localhost:81/GiftBox
+```
+Pour vous connecter et accéder à toutes les fonctionnalités de l'application : 
+```
+    - Appuyez sur le bouton "Inscription" et créez un compte.
+    - /!\ Attention /!\ : le mot de passe doit contenir minimum 8 caractères ainsi qu'une majuscule minimum
+    - Connectez-vous avec vos identifiants.
 ```
 
 ### Tester les services de l'application avec PHPUnit :

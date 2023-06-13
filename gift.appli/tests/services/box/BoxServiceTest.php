@@ -1,19 +1,20 @@
 <?php
 declare(strict_types=1);
 
-namespace gift\test\services\coffret;
+namespace gift\test\services\box;
 
 use Faker\Factory;
-use gift\app\models\Categorie;
+use gift\app\models\Box;
 use gift\app\models\Prestation;
 use gift\app\services\box\BoxServices;
-use \PHPUnit\Framework\TestCase;
-use Illuminate\Database\Capsule\Manager as DB ;
+use Illuminate\Database\Capsule\Manager as DB;
+use PHPUnit\Framework\TestCase;
 
-final class BoxServiceTest extends TestCase {
+final class BoxServiceTest extends TestCase
+{
+    private static array $boxes = [];
+    private static array $prestations = [];
 
-    private static array $prestations  = [];
-    private static array $categories = [];
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
@@ -24,50 +25,95 @@ final class BoxServiceTest extends TestCase {
         $db->bootEloquent();
         $faker = Factory::create('fr_FR');
 
-        $c1= Categorie::create([
+        $b1 = Box::create([
+            'id' => $faker->uuid(),
             'libelle' => $faker->word(),
-            'description' => $faker->paragraph(3)
+            'description' => $faker->paragraph(3),
+            'tarif' => $faker->randomFloat(2, 20, 200),
+            'unite' => $faker->numberBetween(1, 3),
+            'token' => $faker->uuid()
         ]);
-        $c2=Categorie::create([
+        $b2 = Box::create([
+            'id' => $faker->uuid(),
             'libelle' => $faker->word(),
-            'description' => $faker->paragraph(4)
+            'description' => $faker->paragraph(3),
+            'tarif' => $faker->randomFloat(2, 20, 200),
+            'unite' => $faker->numberBetween(1, 3),
+            'token' => $faker->uuid()
         ]);
-        self::$categories= [$c1, $c2];
+        $b3 = new Box();
 
-        for ($i=1; $i<=4; $i++) {
-            $p=Prestation::create([
+
+        self::$boxes = [$b1, $b2, $b3, $b1];
+
+        for ($i = 1; $i <= 4; $i++) {
+            $p1 = Prestation::create([
                 'id' => $faker->uuid(),
                 'libelle' => $faker->word(),
                 'description' => $faker->paragraph(3),
                 'tarif' => $faker->randomFloat(2, 20, 200),
                 'unite' => $faker->numberBetween(1, 3)
             ]);
-            array_push(self::$prestations, $p);
+            array_push(self::$prestations, $p1);
         }
 
-        self::$prestations[0]->categorie()->associate($c1); self::$prestations[0]->save();
-        self::$prestations[1]->categorie()->associate($c1); self::$prestations[1]->save();
-        self::$prestations[2]->categorie()->associate($c2); self::$prestations[2]->save();
-        self::$prestations[3]->categorie()->associate($c2); self::$prestations[3]->save();
-
+        self::$boxes[3]->prestations()->attach(self::$prestations[0], ['quantite' => 1]);
+        self::$boxes[3]->save();
+        self::$boxes[3]->prestations()->attach(self::$prestations[1], ['quantite' => 2]);
+        self::$boxes[3]->save();
     }
 
     public static function tearDownAfterClass(): void
     {
-        foreach (self::$categories as $c) {
-            $c->delete();
+        foreach (self::$boxes as $b) {
+            $b->delete();
         }
-        foreach (self::$prestations as $prestation) {
-            $prestation->delete();
+        foreach (self::$prestations as $p) {
+            $p->delete();
         }
     }
 
-    public function testGetBoxByID() {
-        $bs = new BoxServices();
-        $box = $bs->getBoxByID("1");
+    public function testCreationBoxVide(): void
+    {
+        $bs = new Box();
+
+        $this->assertEquals(self::$boxes[2], $bs);
+
     }
+
+    public function testGetBox(): void
+    {
+        $bs = new BoxServices();
+        $b0 = $bs->getBox(self::$boxes[0]->id);
+        $b1 = $bs->getBox(self::$boxes[1]->id);
+        $b2 = $bs->getBox(self::$boxes[2]->id);
+        $this->assertEquals(self::$boxes[0]->toArray(), $b0);
+        $this->assertEquals(self::$boxes[1]->toArray(), $b1);
+        $this->assertEquals(self::$boxes[2]->toArray(), $b2);
+    }
+
+    public function testaddPrestationToBox(): void
+    {
+        $bs = new BoxServices();
+        $ps = new PrestationsServices();
+        $ba = $bs->getBox(self::$boxes[1]->id);
+        $b0 = Box::create([
+            'id' => $ba['id'],
+            'libelle' => $ba['libelle'],
+            'description' => $ba['description'],
+            'tarif' => $ba['tarif'],
+            'unite' => $ba['unite'],
+            'token' => $ba['token']
+        ]);
+        $b0->prestations()->attach(self::$prestations[0], ['quantite' => 1]);
+        $b0->save();
+        $b0->prestations()->attach(self::$prestations[1], ['quantite' => 2]);
+        $b0->save();
+
+        $this->assertEquals(self::$boxes[1], $b0);
+    }
+
+
+
 
 }
-
-
-

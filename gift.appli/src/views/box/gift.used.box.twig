@@ -1,0 +1,17 @@
+{% extends "./main/gift.main.twig" %}
+
+{% block title %}Box{% endblock %}
+
+{% block content %}
+    <h1>{{ box.libelle }}</h1>
+
+    {% if box.statut==4 %}
+        <p>La box a bien été activée, vous pouvez à présent l'utiliser</p>
+        <a href="{{ url_for('box', {}, {id: box.id}) }}">Revisualiser la box</a>
+    {% else %}
+        <p>Votre box n'est pas encore utilisée, veuillez l'activer pour en profiter </p>
+        <a href="{{ url_for('box', {}, {id: box.id}) }}">Visualiser la box</a>
+    {% endif %}
+{% endblock %}
+
+

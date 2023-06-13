@@ -113,7 +113,8 @@ GET /api/categories/{id}/prestations
 GET /api/coffrets/{id}
 
 A faire:
-13 et 14 de jules
-12
+Tache 12
 Test des services
-20
+Mise en place sur docketu
+Rapport pour le rendu
+explication de mise en place pour le rendu

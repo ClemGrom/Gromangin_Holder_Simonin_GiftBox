@@ -50,7 +50,7 @@ return function (\Slim\App $app): void {
      * CATEGORIES
      */
     // Visualiser les catégories
-    $app->get('/categorie[/]', GetCategoriesAction::class)->setName("categorie");
+    $app->get('[/]', GetCategoriesAction::class)->setName("categorie");
     // Visualiser une catégorie
     $app->get('/categorie/{id:\d}', GetCategoriesIDAction::class)->setName("CategorieID");
 

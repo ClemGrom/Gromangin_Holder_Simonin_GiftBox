@@ -19,6 +19,7 @@ class Box extends Model
     const CREATED = 1;
     const VALIDATED = 2;
     const PAYED = 3;
+    const USED=4;
 
     public function prestations(): BelongsToMany
     {

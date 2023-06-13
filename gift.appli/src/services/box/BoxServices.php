@@ -137,9 +137,14 @@ class BoxServices {
     }
 
     function pay($id) : void {
-        $user = $_SESSION['user'];
         $box = Box::where('id', '=', $id)->first();
         $box->statut = Box::PAYED;
+        $box->save();
+    }
+
+    function use($id):void{
+        $box=Box::where('id','=',$id)->first();
+        $box->statut=Box::USED;
         $box->save();
     }
 

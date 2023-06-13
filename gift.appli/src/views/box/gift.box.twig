@@ -26,6 +26,12 @@
         <a href="{{ url_for('newCoffretPrefilled', {}, {id: box.id}) }}">Créer un coffret prérempli</a>
     {% endif %}
     {% if box.user_email %}
-        <a href="{{ url_for('pay', {}, {id: box.id}) }}">Payer</a>
+        {% if box.statut==2 %}
+            <a href="{{ url_for('pay', {}, {id: box.id}) }}">Payer</a>
+        {% elseif box.statut==3 %}
+            <a href="{{ url_for('usedBox', {}, {id: box.id}) }}">Utiliser la box</a>
+        {% elseif box.statut==4 %}
+            <p>Votre box a déjà été activée, vous pouvez à présent l'utiliser</p>
+        {% endif %}
     {% endif %}
 {% endblock %}

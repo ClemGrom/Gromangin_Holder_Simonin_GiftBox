@@ -5,6 +5,7 @@ use gift\app\action\box\GetDeletePrestaAction;
 use gift\app\action\box\GetMyBoxesAction;
 use gift\app\action\box\GetPrefilledBoxAction;
 use gift\app\action\box\GetPrefilledBoxCreate;
+use gift\app\action\box\GetUseBox;
 use gift\app\action\GetCategoriesApiAction;
 use gift\app\action\user\GetLogoutAction;
 use gift\app\action\box\GetMyBoxAction;
@@ -76,6 +77,8 @@ return function (\Slim\App $app): void {
     $app->get('/box/prefilled/create', GetPrefilledBoxCreate::class)->setName("newCoffretPrefilled");
     // Visualiser mes boxes
     $app->get('/box/myBoxes[/]', GetMyBoxesAction::class)->setName("mesBox");
+    //Utilisation de box
+    $app->get('/box/used',GetUseBox::class)->setName("usedBox");
 
     /*
      * USER

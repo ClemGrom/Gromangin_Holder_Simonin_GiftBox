@@ -13,11 +13,13 @@
             {% endif %}
             <a href="{{ url_for('box', {}, {id: box.id}) }}">Visualiser la box</a>
             {% if box.statut == 1 %}
-                <p>Status : En cours de création</p>
+                <p>Statut : En cours de création</p>
             {% elseif box.statut == 2 %}
-                <p>Status : Validée</p>
+                <p>Statut : Validée</p>
             {% elseif box.statut == 3 %}
-                <p>Status : Payée</p>
+                <p>Statut : Payée</p>
+            {% elseif box.statut==4 %}
+                <p>Statut : Utilisée</p>
             {% endif %}
             <br>
         {% endfor %}

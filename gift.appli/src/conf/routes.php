@@ -28,6 +28,8 @@ use gift\app\action\box\PostNewEmptyBoxAction;
 use gift\app\action\user\GetRegisterAction;
 use gift\app\action\prestation\GetPrestationPrixCroissantAction;
 use gift\app\action\prestation\GetPrestationPrixDecroissantAction;
+use gift\app\action\user\GetUserAction;
+use gift\app\action\box\PostChooseNumberPrestationToBox;
 
 return function (\Slim\App $app): void {
 
@@ -59,6 +61,7 @@ return function (\Slim\App $app): void {
      */
     // Creation Box
     $app->get('/box/new[/]', GetNewEmptyBoxAction::class)->setName("newEmptyBox");
+
     $app->post('/box/new[/]', PostNewEmptyBoxAction::class);
     // Visualiser ma Box
     $app->get('/box/my[/]', GetMyBoxAction::class)->setName("myBox");
@@ -71,6 +74,8 @@ return function (\Slim\App $app): void {
     $app->get('/box/delete[/]', GetDeletePrestaAction::class)->setName("deletePresta");
     // Ajouter une prestation à la box
     $app->get('/prestation/add', PostAddPrestationToBoxAction::class)->setName("addPrestationToBox");
+
+    $app->post('/prestation/choose', PostChooseNumberPrestationToBox::class)->setName("chooseNumberPrestationToBox");
     // Afficher les box préremplies
     $app->get('/box/prefilled[/]', GetPrefilledBoxAction::class)->setName("premadeBox");
     // Visualiser une box

@@ -80,6 +80,23 @@ class BoxServices {
         $box->save();
     }
 
+    function chooseNumberPrestationToBox(String $prestaId, int $qte) {
+
+        $box = $this->boxEnCreation();
+
+        $presta = Prestation::where('id', '=', $prestaId)->first();
+
+        if($box->statut != Box::CREATED) throw new \Exception("La box n'est plus en cours de création");
+        if($box->prestations()->get()->contains($presta)){
+            $box->prestations()->updateExistingPivot($presta, ["quantite" =>  $qte]);
+        }else{
+            $box->prestations()->attach($presta, ["quantite" => $qte]);
+        }
+
+        $box->montant = $box->montant + ($presta->tarif * $qte);
+        $box->save();
+    }
+
     function getMyBox() : array {
         $box = $this->boxEnCreation();
         return $box->toArray();

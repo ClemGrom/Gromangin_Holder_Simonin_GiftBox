@@ -12,6 +12,16 @@
     {% for presta in prestations %}
         <p>Prestation : {{ presta.libelle }}</p>
         <p>Prix : {{ presta.tarif }}</p>
+
+        <form action='{{ url_for('chooseNumberPrestationToBox',{}, {id: presta.id}) }}' method="post">
+            <label>Choisir nombre de prestation</label>
+            <select name="nbr" id="box-select">
+                {% for i in range(0, 10) %}
+                    <option value="{{ i }}">{{ i }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Ajouter la prestation</button>
+        </form>
         <p>Quantite : {{ presta.pivot.quantite }}</p>
         <a href="{{ url_for('deletePresta', {}, {id: presta.id}) }}">Supprimer la prestation</a>
         <br>

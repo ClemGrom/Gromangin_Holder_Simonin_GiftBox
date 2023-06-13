@@ -5,6 +5,8 @@ use gift\app\action\box\GetDeletePrestaAction;
 use gift\app\action\box\GetMyBoxesAction;
 use gift\app\action\box\GetPrefilledBoxAction;
 use gift\app\action\box\GetPrefilledBoxCreate;
+use gift\app\action\box\GetPrefilledBoxCreateModify;
+use gift\app\action\box\PostPrefilledBoxCreateModify;
 use gift\app\action\box\GetUseBox;
 use gift\app\action\GetCategoriesApiAction;
 use gift\app\action\user\GetLogoutAction;
@@ -75,6 +77,9 @@ return function (\Slim\App $app): void {
     $app->get('/box', GetBoxAction::class)->setName("box");
     // Créer un coffret à partir d'une box préremplie
     $app->get('/box/prefilled/create', GetPrefilledBoxCreate::class)->setName("newCoffretPrefilled");
+    // Créer un coffret à partir d'une box préremplie à modifier
+    $app->get('/box/prefilled/create/modify', GetPrefilledBoxCreateModify::class)->setName("newCoffretPrefilledModify");
+    $app->post('/box/prefilled/create/modify', PostPrefilledBoxCreateModify::class);
     // Visualiser mes boxes
     $app->get('/box/myBoxes[/]', GetMyBoxesAction::class)->setName("mesBox");
     //Utilisation de box

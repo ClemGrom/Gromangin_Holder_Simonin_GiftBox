@@ -42,8 +42,8 @@ CREATE TABLE `prestation` (
                               `url` varchar(256) DEFAULT NULL,
                               `unite` varchar(128) DEFAULT NULL,
                               `tarif` decimal(10,2) NOT NULL,
-                              `img` varchar(128) NOT NULL,
-                              `cat_id` int(11) NOT NULL
+                              `img` varchar(128) DEFAULT NULL,
+                              `cat_id` int(11) DEFAULT NULL
 );
 
 DROP TABLE IF EXISTS `user`;

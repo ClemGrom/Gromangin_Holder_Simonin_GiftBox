@@ -194,4 +194,33 @@ class BoxServices {
         return $boxes->toArray();
     }
 
+    function createPrefilledModifyBox($boxPrefilled, $myModifyBox) {
+        $this->getConnection();
+        $boxes = $this->boxUser();
+        $boxEnCours = $boxes->where('statut', '=', Box::CREATED)->first();
+        if($boxEnCours != null) throw new \Exception("Vous avez déjà une box en cours de création");
+
+        $boxPrefilled = Box::where('id', '=', $boxPrefilled)->first();
+
+        $newBox = new Box();
+        $newBox->id = Uuid::uuid4()->toString();
+        $newBox->token = base_convert(hash('sha256', time() . mt_rand()), 16, 36);
+        $newBox->libelle = $myModifyBox['libelle'] == filter_var($myModifyBox['libelle']) ? $myModifyBox['libelle'] : throw new \Exception("Le libelle n'est pas valide");
+        $newBox->description = $myModifyBox['description'] == filter_var($myModifyBox['description']) ? $myModifyBox['description'] : throw new \Exception("La description n'est pas valide");
+        $newBox->kdo = $myModifyBox['kdo'] == filter_var($myModifyBox['kdo']) ? ($myModifyBox['kdo'] == "oui") ? 1 : 0 : $valide = false;
+        if(isset($myModifyBox['message_kdo'])) {
+            $newBox->message_kdo = $myModifyBox['message_kdo'] == filter_var($myModifyBox['message_kdo']) ? $myModifyBox['message_kdo'] : throw new \Exception("Le message n'est pas valide");
+        }
+        $newBox->statut = Box::CREATED;
+        $newBox->montant = $boxPrefilled->montant;
+        $newBox->user_email = $_SESSION['user']['email'];
+
+        $prestations = $boxPrefilled->prestations()->get();
+        foreach ($prestations as $prestation) {
+            $newBox->prestations()->attach($prestation, ["quantite" => $boxPrefilled->prestations()->get()->find($prestation)->pivot->quantite]);
+        }
+
+        $newBox->save();
+    }
+
 }

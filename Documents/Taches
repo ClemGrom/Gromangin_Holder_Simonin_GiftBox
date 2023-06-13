@@ -91,6 +91,11 @@ leurs quantités prévues dans la box sont automatiquement ajoutées au nouveau 
 • La création d'un coffret pré-rempli peut se faire avec le formulaire de création de coffrets :
 un champ permet de choisir une box, ou de la laisser vide.
 
+20 Créer un coffret prérempli à partir d'une box affichée /////////// FAIT
+• Lorsqu'une box prédéfinie est affichée, il est possible de créer un coffret en cliquant sur un
+lien/bouton. Le formulaire de création de coffret est affiché ; il est pré-rempli avec le choix
+de la box.
+
 21 Api : liste des prestations /////////// FAIT
 • L'api retourne la liste des prestations en format JSON en réponse à la requête
 GET /api/prestations

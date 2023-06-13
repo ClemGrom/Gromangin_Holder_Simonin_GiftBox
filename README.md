@@ -1,7 +1,11 @@
-# Gromangin_Holder_Simonin_GiftBox
+# Projet GiftBox
+
+- SIMONIN Enzo
+- HOLDER Jules
+- GROMANGIN Clément
 
 ## Utiliser GiftBox depuis docketu :
-Rendez-vous sur l'URL :
+Rendez-vous sur l'URL suivante depuis le réseau de l'IUT ou un VPN :
 ```
 docketu.iutnc.univ-lorraine.fr:22222/GiftBox
 ```

@@ -28,8 +28,6 @@ database=le_nom_de_votre_base_de_donnée
 charset=utf8
 collation=utf8_unicode_ci
 ```
-Dans le fichier "gift.api/src/conf/db.conf.ini" modifiez la ligne host=sql par host=localhost:3306
-
 
 ### Lancement du projet avec docker :
 Dans le dossier "docker" utilisez la commande : 
@@ -64,7 +62,19 @@ Pour vous connecter et accéder à toutes les fonctionnalités de l'application 
 ```
 
 ### Tester les services de l'application avec PHPUnit :
-Utilisez la commande :
+Mise en place de la base de données :
+ * Dans le dossier "gift.appli/src/conf", créer un fichier nommé "db.test.conf.ini" contenant :
+```
+driver=mysql
+username=votre_username
+password=votre_password
+host=localhost:3306
+database=le_nom_de_votre_base_de_donnée_de_test
+charset=utf8
+collation=utf8_unicode_ci
+```
+ * Sur phpmyadmin créez une base de données vide 
+ * Utilisez la commande :
 ```
 gift.appli/src/vendor/bin/phpunit gift.appli/tests/services/prestations/PrestationServiceTest.php
 ```

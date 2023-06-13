@@ -20,14 +20,14 @@ associées à cette catégorie sont affichées.
 • Afficher la liste des catégories
 • Un clic sur un élément de la liste conduit à afficher la liste des prestations de cette catégorie
 
-13 Génération de l'URL d'accès
+13 Génération de l'URL d'accès //////////// FAIT
 • Une fois le coffret payé, le créateur de la pochette peut demander à l'application de générer
 une URL d'accès au coffret. Cette URL est unique et difficile à deviner. Elle permet de
 consulter et d'utiliser la coffret
 • Le token associé à l'URL est stocké dans la base.
 • Pour un coffret validé et payé, une seule URL peut être générée
 
-14 Accès au coffret
+14 Accès au coffret //////////// FAIT
 • L'URL d'accès au coffret permet d'accéder au contenu du coffret, avec un affichage des
 prestations incluses et leur quantité
 • Il est possible d'imprimer le coffret, il faut prévoir un format adapté

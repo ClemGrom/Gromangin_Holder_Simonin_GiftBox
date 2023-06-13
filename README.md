@@ -58,7 +58,8 @@ localhost:81/GiftBox
 Pour vous connecter et accéder à toutes les fonctionnalités de l'application : 
 ```
     - Appuyez sur le bouton "Inscription" et créez un compte.
-    - /!\ Attention /!\ : le mot de passe doit contenir minimum 8 caractères ainsi qu'une majuscule minimum
+    - /!\ Attention /!\ : le mot de passe doit contenir minimum 8 caractères ainsi qu'une 
+    majuscule minimum.
     - Connectez-vous avec vos identifiants.
 ```
 

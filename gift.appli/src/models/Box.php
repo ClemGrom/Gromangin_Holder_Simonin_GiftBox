@@ -5,7 +5,6 @@ namespace gift\app\models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Box extends Model
 {
@@ -19,7 +18,7 @@ class Box extends Model
     const CREATED = 1;
     const VALIDATED = 2;
     const PAYED = 3;
-    const USED=4;
+    const USED = 4;
 
     public function prestations(): BelongsToMany
     {

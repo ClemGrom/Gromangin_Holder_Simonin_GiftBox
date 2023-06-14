@@ -2,7 +2,6 @@
 
 namespace gift\app\conf;
 
-use gift\app\services\Eloquent;
 use Slim\Factory\AppFactory;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
@@ -13,8 +12,8 @@ $app->setBasePath("/GiftBox");
 $app->addErrorMiddleware(true, false, false);
 
 $twig = Twig::create("../src/views",
-                                        ['cache' => "../src/views/cache",
-                                         'auto_reload' => true]);
+    ['cache' => "../src/views/cache",
+        'auto_reload' => true]);
 $app->add(TwigMiddleware::create($app, $twig));
 
 define("gift\app\conf\basePath", $app->getBasePath());

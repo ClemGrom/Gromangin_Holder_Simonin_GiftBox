@@ -2,34 +2,32 @@
 
 use gift\app\action\box\GetBoxAction;
 use gift\app\action\box\GetDeletePrestaAction;
+use gift\app\action\box\GetMyBoxAction;
 use gift\app\action\box\GetMyBoxesAction;
+use gift\app\action\box\GetNewEmptyBoxAction;
+use gift\app\action\box\GetPayAction;
 use gift\app\action\box\GetPrefilledBoxAction;
 use gift\app\action\box\GetPrefilledBoxCreate;
 use gift\app\action\box\GetPrefilledBoxCreateModify;
-use gift\app\action\box\PostPrefilledBoxCreateModify;
 use gift\app\action\box\GetUseBox;
-use gift\app\action\GetCategoriesApiAction;
-use gift\app\action\user\GetLogoutAction;
-use gift\app\action\box\GetMyBoxAction;
-use gift\app\action\box\GetPayAction;
 use gift\app\action\box\GetValidateBoxAction;
 use gift\app\action\box\PostAddPrestationToBoxAction;
+use gift\app\action\box\PostChooseNumberPrestationToBox;
+use gift\app\action\box\PostNewEmptyBoxAction;
 use gift\app\action\box\PostPayAction;
-use gift\app\action\user\GetLoginAction;
-use gift\app\action\user\PostLoginAction;
-use gift\app\action\user\PostRegisterAction;
+use gift\app\action\box\PostPrefilledBoxCreateModify;
 use gift\app\action\categorie\GetCategoriesAction;
 use gift\app\action\categorie\GetCategoriesIDAction;
 use gift\app\action\prestation\GetAllPrestationsAction;
-use gift\app\action\box\GetNewEmptyBoxAction;
 use gift\app\action\prestation\GetPrestationAction;
 use gift\app\action\prestation\GetPrestationCategorieAction;
-use gift\app\action\box\PostNewEmptyBoxAction;
-use gift\app\action\user\GetRegisterAction;
 use gift\app\action\prestation\GetPrestationPrixCroissantAction;
 use gift\app\action\prestation\GetPrestationPrixDecroissantAction;
-use gift\app\action\user\GetUserAction;
-use gift\app\action\box\PostChooseNumberPrestationToBox;
+use gift\app\action\user\GetLoginAction;
+use gift\app\action\user\GetLogoutAction;
+use gift\app\action\user\GetRegisterAction;
+use gift\app\action\user\PostLoginAction;
+use gift\app\action\user\PostRegisterAction;
 
 return function (\Slim\App $app): void {
 
@@ -88,7 +86,7 @@ return function (\Slim\App $app): void {
     // Visualiser mes boxes
     $app->get('/box/myBoxes[/]', GetMyBoxesAction::class)->setName("mesBox");
     //Utilisation de box
-    $app->get('/box/used',GetUseBox::class)->setName("usedBox");
+    $app->get('/box/used', GetUseBox::class)->setName("usedBox");
 
     /*
      * USER

@@ -1,14 +1,21 @@
 #nav {
-    background-color: blue;
+    background-color: #9AC8EB;
     padding: 20px;
     margin: -10px;
     font-family: "Arial";
-    height: 100%;
+    display: flex; /* Utilisation de flexbox */
+    align-items: center; /* Alignement vertical des éléments au centre */
 }
 
 #nav > a {
     display: block;
     text-decoration: none;
+    border-right: 1px solid white; /* Utilisation de bordure droite pour séparer les liens */
     color: white;
-    padding: 10px 0px 10px 0px;
+    padding: 10px;
+    margin-right: 10px; /* Espacement entre les liens */
+}
+
+#nav > a:last-child {
+    border-right: none; /* Supprimer la bordure droite du dernier lien */
 }

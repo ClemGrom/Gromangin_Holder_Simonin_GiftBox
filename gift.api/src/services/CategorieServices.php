@@ -4,9 +4,11 @@ namespace gift\api\services;
 
 use gift\api\models\Categorie;
 
-class CategorieServices {
+class CategorieServices
+{
 
-    function getCategories() {
+    function getCategories()
+    {
         $categories = Categorie::all();
         return $categories->toArray();
     }

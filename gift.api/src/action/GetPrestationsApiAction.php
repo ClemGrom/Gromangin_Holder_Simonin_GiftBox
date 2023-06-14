@@ -2,7 +2,6 @@
 
 namespace gift\api\action;
 
-use gift\api\services\CategorieServices;
 use gift\api\services\PrestationServices;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

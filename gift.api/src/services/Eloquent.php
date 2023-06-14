@@ -1,11 +1,14 @@
 <?php
 
 namespace gift\api\services;
+
 use Illuminate\Database\Capsule\Manager as DB;
 
-class Eloquent {
+class Eloquent
+{
 
-    public static function init($filename): void {
+    public static function init($filename): void
+    {
 
         $db = new DB();
         $db->addConnection(parse_ini_file($filename));

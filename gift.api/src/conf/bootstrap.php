@@ -2,10 +2,7 @@
 
 namespace gift\app\conf;
 
-use gift\app\services\Eloquent;
 use Slim\Factory\AppFactory;
-use Slim\Views\Twig;
-use Slim\Views\TwigMiddleware;
 
 $app = AppFactory::create();
 $app->addRoutingMiddleware();

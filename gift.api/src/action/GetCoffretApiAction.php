@@ -2,7 +2,6 @@
 
 namespace gift\api\action;
 
-use gift\api\services\CategorieServices;
 use gift\api\services\CoffretServices;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -15,7 +14,7 @@ class GetCoffretApiAction
         $c = new CoffretServices();
         $box = $c->getCoffret($id);
 
-        if($box == null) {
+        if ($box == null) {
             $rs->getBody()->write(json_encode(['message' => 'Coffret non trouvé']));
             return $rs->withHeader('Content-Type', 'application/json')->withStatus(404);
         }

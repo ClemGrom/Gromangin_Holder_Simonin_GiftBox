@@ -4,14 +4,17 @@ namespace gift\api\services;
 
 use gift\api\models\Box;
 
-class CoffretServices {
+class CoffretServices
+{
 
-    function getCoffret($id) {
+    function getCoffret($id)
+    {
         $coffret = Box::find($id);
         return $coffret;
     }
 
-    function getPrestationsOfCoffret($id) {
+    function getPrestationsOfCoffret($id)
+    {
         // récupérer les prestations de la box
         $box = Box::find($id);
         return $box->prestations->toArray();

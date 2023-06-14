@@ -18,9 +18,9 @@ class GetPayAction
         $user = $_SESSION['user'];
 
         $b = new BoxServices();
-        try{
+        try {
             $b->verificationCoffretValide($_GET['id']);
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             $view = Twig::fromRequest($rq);
             return $view->render($rs, 'main/gift.error.twig', [
                 'error' => $e->getMessage()

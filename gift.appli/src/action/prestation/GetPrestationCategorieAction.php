@@ -2,7 +2,6 @@
 
 namespace gift\app\action\prestation;
 
-use gift\app\services\categories\CategoriesServices;
 use gift\app\services\prestations\PrestationsServices;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;

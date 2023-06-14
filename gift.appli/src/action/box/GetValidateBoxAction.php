@@ -3,12 +3,8 @@
 namespace gift\app\action\box;
 
 use gift\app\services\box\BoxServices;
-use gift\app\services\categories\CategoriesServices;
-use gift\app\services\utils\CsrfService;
-use gift\app\services\utils\TokenInvalid;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Slim\Exception\HttpBadRequestException;
 use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
 
@@ -19,9 +15,9 @@ class GetValidateBoxAction
     {
 
         $box = new BoxServices();
-        try{
+        try {
             $box->validate();
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             $view = Twig::fromRequest($rq);
             return $view->render($rs, 'main/gift.error.twig', [
                 'error' => $e->getMessage()

@@ -13,7 +13,7 @@ class PostChooseNumberPrestationToBox
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
         $post_data = $rq->getParsedBody();
-        $nbr=$post_data['nbr'];
+        $nbr = $post_data['nbr'];
         echo $nbr;
 
         $box = new BoxServices();

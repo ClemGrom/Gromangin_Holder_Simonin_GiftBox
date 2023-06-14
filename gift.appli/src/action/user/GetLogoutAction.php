@@ -3,7 +3,6 @@
 namespace gift\app\action\user;
 
 use gift\app\services\authentification\AuthServices;
-use gift\app\services\box\BoxServices;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Routing\RouteContext;

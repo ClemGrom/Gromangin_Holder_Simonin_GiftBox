@@ -3,7 +3,6 @@
 namespace gift\app\action\box;
 
 use gift\app\services\box\BoxServices;
-use gift\app\services\categories\CategoriesServices;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Views\Twig;

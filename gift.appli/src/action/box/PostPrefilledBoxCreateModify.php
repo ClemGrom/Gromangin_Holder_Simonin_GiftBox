@@ -3,7 +3,6 @@
 namespace gift\app\action\box;
 
 use gift\app\services\box\BoxServices;
-use gift\app\services\categories\CategoriesServices;
 use gift\app\services\utils\CsrfService;
 use gift\app\services\utils\TokenInvalid;
 use Psr\Http\Message\ResponseInterface;
@@ -26,16 +25,16 @@ class PostPrefilledBoxCreateModify
             'message' => $post_data['message']
         );
 
-        try{
+        try {
             CsrfService::check($post_data['csrf']);
-        }catch(TokenInvalid $e) {
+        } catch (TokenInvalid $e) {
             throw new HttpBadRequestException($rq, "token invalide");
         }
 
         $p = new BoxServices();
-        try{
+        try {
             $p->createPrefilledModifyBox($post_data['box'], $box);
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             $token = CsrfService::generate();
             $view = Twig::fromRequest($rq);
             return $view->render($rs, 'main/gift.error.twig', [

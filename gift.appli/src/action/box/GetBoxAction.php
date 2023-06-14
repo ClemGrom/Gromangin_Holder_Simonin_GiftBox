@@ -4,7 +4,6 @@ namespace gift\app\action\box;
 
 use gift\app\services\box\BoxServices;
 use gift\app\services\prestations\PrestationsServices;
-use gift\app\services\utils\CsrfService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Views\Twig;

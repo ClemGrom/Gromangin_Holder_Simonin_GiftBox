@@ -3,7 +3,6 @@
 namespace gift\app\action\user;
 
 use gift\app\services\authentification\AuthServices;
-use gift\app\services\categories\CategoriesServices;
 use gift\app\services\utils\CsrfService;
 use gift\app\services\utils\TokenInvalid;
 use Psr\Http\Message\ResponseInterface;
@@ -19,16 +18,16 @@ class PostLoginAction
     {
         $post_data = $rq->getParsedBody();
 
-        try{
+        try {
             CsrfService::check($post_data['csrf']);
-        }catch(TokenInvalid $e) {
+        } catch (TokenInvalid $e) {
             throw new HttpBadRequestException($rq, "token invalide");
         }
 
         $auth = new AuthServices();
-        try{
+        try {
             $auth->authenticate($post_data['email'], $post_data['mdp']);
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             $token = CsrfService::generate();
             $view = Twig::fromRequest($rq);
             return $view->render($rs, 'user/gift.login.twig', [

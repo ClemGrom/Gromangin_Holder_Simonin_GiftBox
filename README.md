@@ -21,8 +21,8 @@ git clone git@github.com:ClemGrom/Gromangin_Holder_Simonin_GiftBox.git
 Dans le dossier "gift.api/src/conf" et dans le dossier "gift.appli/src/conf", créer un fichier nommé "db.conf.ini" contenant :
 ```
 driver=mysql
-username=votre_username
-password=votre_password
+username=root
+password=root
 host=sql
 database=le_nom_de_votre_base_de_donnée
 charset=utf8
@@ -46,7 +46,7 @@ composer install
     - Connectez-vous avec les identifiants de votre base de données.
     - Créez une nouvelle base de données, qui contient le nom qui vous lui avez attribué
     dans votre fichier de configuration.
-    - Importez le fichier "sql/bdd.sql" et le ficher "sql/giftbox.data.sql" dans votre base de données.
+    - Importez le fichier "sql/giftbox.sql" dans votre base de données.
 
 ### Connexion à l'application :
 Rendez-vous sur l'URL :

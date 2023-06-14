@@ -2,6 +2,7 @@
 
 namespace gift\app\services\utils;
 
-class TokenInvalid extends \Exception {
+class TokenInvalid extends \Exception
+{
 
 }

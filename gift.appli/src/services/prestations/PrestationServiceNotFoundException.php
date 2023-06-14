@@ -2,6 +2,7 @@
 
 namespace gift\app\services\prestations;
 
-class PrestationServiceNotFoundException extends \Exception {
+class PrestationServiceNotFoundException extends \Exception
+{
 
 }

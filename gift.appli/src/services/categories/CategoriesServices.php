@@ -5,7 +5,6 @@ namespace gift\app\services\categories;
 use gift\app\models\Categorie;
 use gift\app\services\prestations\PrestationServiceNotFoundException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Slim\Psr7\Request;
 
 class CategoriesServices
 {

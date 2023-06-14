@@ -4,37 +4,38 @@ namespace gift\app\services\box;
 
 use gift\app\models\Box;
 use gift\app\models\Prestation;
-use gift\app\models\User;
-use gift\app\services\authentification\AuthServices;
 use Ramsey\Uuid\Uuid;
-use Slim\Exception\HttpBadRequestException;
 
-class BoxServices {
+class BoxServices
+{
 
-    function getConnection() : array {
-        if(!isset($_SESSION['user'])) throw new \Exception("Vous n'êtes pas connecté");
+    function getConnection(): array
+    {
+        if (!isset($_SESSION['user'])) throw new \Exception("Vous n'êtes pas connecté");
         return $_SESSION['user'];
     }
 
-    function boxUser() {
+    function boxUser()
+    {
         $this->getConnection();
         $user = $_SESSION['user'];
         return Box::where('user_email', '=', $user['email'])->get();
     }
 
-    function boxEnCreation() {
+    function boxEnCreation()
+    {
         $boxes = $this->boxUser();
         $box = $boxes->where('statut', '=', Box::CREATED)->first();
-        if($box == null) throw new \Exception("Vous n'avez pas de box en cours de création");
+        if ($box == null) throw new \Exception("Vous n'avez pas de box en cours de création");
         return $box;
     }
 
-    function setNewBox(array $donnee) : void
+    function setNewBox(array $donnee): void
     {
 
         $box = $this->boxUser();
         foreach ($box as $b) {
-            if($b['statut'] == Box::CREATED) throw new \Exception("Vous avez déjà une box en cours de création");
+            if ($b['statut'] == Box::CREATED) throw new \Exception("Vous avez déjà une box en cours de création");
         }
 
         $valide = true;
@@ -49,7 +50,7 @@ class BoxServices {
             $box->message_kdo = ($donnee['message'] == filter_var($donnee['message'])) ? $donnee['message'] : $valide = false;
         }
 
-        if($donnee['boxDef'] != "vide"){
+        if ($donnee['boxDef'] != "vide") {
             $boxDef = Box::where('id', '=', $donnee['boxDef'])->first();
             $prestations = $boxDef->prestations()->get();
             foreach ($prestations as $prestation) {
@@ -64,32 +65,34 @@ class BoxServices {
         $box->save();
     }
 
-    function addPrestationToBox(String $prestaId) {
+    function addPrestationToBox(string $prestaId)
+    {
         $box = $this->boxEnCreation();
         $user = $_SESSION['user'];
 
         $presta = Prestation::where('id', '=', $prestaId)->first();
-        if($box->statut != Box::CREATED) throw new \Exception("La box n'est plus en cours de création");
-        if($box->prestations()->get()->contains($presta)){
+        if ($box->statut != Box::CREATED) throw new \Exception("La box n'est plus en cours de création");
+        if ($box->prestations()->get()->contains($presta)) {
             $qte = $box->prestations()->get()->find($presta)->pivot->quantite;
-            $box->prestations()->updateExistingPivot($presta, ["quantite" =>  $qte + 1]);
-        }else{
+            $box->prestations()->updateExistingPivot($presta, ["quantite" => $qte + 1]);
+        } else {
             $box->prestations()->attach($presta, ["quantite" => 1]);
         }
         $box->montant = $box->montant + $presta->tarif;
         $box->save();
     }
 
-    function chooseNumberPrestationToBox(String $prestaId, int $qte) {
+    function chooseNumberPrestationToBox(string $prestaId, int $qte)
+    {
 
         $box = $this->boxEnCreation();
 
         $presta = Prestation::where('id', '=', $prestaId)->first();
 
-        if($box->statut != Box::CREATED) throw new \Exception("La box n'est plus en cours de création");
-        if($box->prestations()->get()->contains($presta)){
-            $box->prestations()->updateExistingPivot($presta, ["quantite" =>  $qte]);
-        }else{
+        if ($box->statut != Box::CREATED) throw new \Exception("La box n'est plus en cours de création");
+        if ($box->prestations()->get()->contains($presta)) {
+            $box->prestations()->updateExistingPivot($presta, ["quantite" => $qte]);
+        } else {
             $box->prestations()->attach($presta, ["quantite" => $qte]);
         }
 
@@ -97,49 +100,53 @@ class BoxServices {
         $prestations = $box->prestations()->get();
         // calculer le prix de toutes les prestations
         $montant = 0;
-        foreach ($prestations as $prestation){
+        foreach ($prestations as $prestation) {
             $montant += ($prestation->tarif * $prestation->pivot->quantite);
         }
         $box->montant = $montant;
         $box->save();
     }
 
-    function getMyBox() : array {
+    function getMyBox(): array
+    {
         $box = $this->boxEnCreation();
         return $box->toArray();
     }
 
-    function getBox($id) : array {
+    function getBox($id): array
+    {
         $box = Box::where('id', '=', $id)->first();
         return $box->toArray();
     }
 
-    function validate() : void {
+    function validate(): void
+    {
         $box = $this->boxEnCreation();
 
         $prestations = $box->prestations()->get();
         $prestations = $prestations->toArray();
         $categorieId = [];
         $valide = true;
-        if(count($prestations) < 2) $valide = false;
-        foreach ($prestations as $prestation){
+        if (count($prestations) < 2) $valide = false;
+        foreach ($prestations as $prestation) {
 
-            if(!in_array($prestation['cat_id'], $categorieId)){
+            if (!in_array($prestation['cat_id'], $categorieId)) {
                 array_push($categorieId, $prestation['cat_id']);
             }
         }
-        if(count($categorieId) < 2) $valide = false;
-        if($valide) {
+        if (count($categorieId) < 2) $valide = false;
+        if ($valide) {
             $box->statut = Box::VALIDATED;
             $box->save();
-        }else {
+        } else {
             throw new \Exception("La box n'est pas valide, il faut au moins 2 prestations de 2 catégories différentes");
         }
     }
 
-    function statusBox($boxId) : string {
+    function statusBox($boxId): string
+    {
         $box = Box::where('id', '=', $boxId)->first();
-        switch ($box->statut){
+        switch ($box->statut) {
             case 1:
                 $res = "En cours de création";
                 break;
@@ -155,24 +162,28 @@ class BoxServices {
         return $res;
     }
 
-    function verificationCoffretValide($boxId) : void {
+    function verificationCoffretValide($boxId): void
+    {
         $box = Box::where('id', '=', $boxId)->first();
-        if($box->statut != 2) throw new \Exception("La box n'est pas validée ou est déjà payée");
+        if ($box->statut != 2) throw new \Exception("La box n'est pas validée ou est déjà payée");
     }
 
-    function pay($id) : void {
+    function pay($id): void
+    {
         $box = Box::where('id', '=', $id)->first();
         $box->statut = Box::PAYED;
         $box->save();
     }
 
-    function use($id):void{
-        $box=Box::where('id','=',$id)->first();
-        $box->statut=Box::USED;
+    function use($id): void
+    {
+        $box = Box::where('id', '=', $id)->first();
+        $box->statut = Box::USED;
         $box->save();
     }
 
-    function deletePrestation($prestationId) : void {
+    function deletePrestation($prestationId): void
+    {
         $user = $_SESSION['user'];
         $box = $this->boxEnCreation();
         $prestation = Prestation::where('id', '=', $prestationId)->first();
@@ -181,16 +192,18 @@ class BoxServices {
         $box->save();
     }
 
-    function getPrefilledBox() : array {
+    function getPrefilledBox(): array
+    {
         $boxes = Box::where('token', 'like', '%=')->get();
         return $boxes->toArray();
     }
 
-    function createPrefilledBox($id) {
+    function createPrefilledBox($id)
+    {
         $this->getConnection();
         $boxes = $this->boxUser();
         $boxEnCours = $boxes->where('statut', '=', Box::CREATED)->first();
-        if($boxEnCours != null) throw new \Exception("Vous avez déjà une box en cours de création");
+        if ($boxEnCours != null) throw new \Exception("Vous avez déjà une box en cours de création");
 
         $box = Box::where('id', '=', $id)->first();
         $newBox = new Box();
@@ -212,17 +225,19 @@ class BoxServices {
         $newBox->save();
     }
 
-    function getBoxOfUser() : array {
+    function getBoxOfUser(): array
+    {
         $user = $this->getConnection();
         $boxes = Box::where('user_email', '=', $user['email'])->get();
         return $boxes->toArray();
     }
 
-    function createPrefilledModifyBox($boxPrefilled, $myModifyBox) {
+    function createPrefilledModifyBox($boxPrefilled, $myModifyBox)
+    {
         $this->getConnection();
         $boxes = $this->boxUser();
         $boxEnCours = $boxes->where('statut', '=', Box::CREATED)->first();
-        if($boxEnCours != null) throw new \Exception("Vous avez déjà une box en cours de création");
+        if ($boxEnCours != null) throw new \Exception("Vous avez déjà une box en cours de création");
 
         $boxPrefilled = Box::where('id', '=', $boxPrefilled)->first();
 
@@ -232,7 +247,7 @@ class BoxServices {
         $newBox->libelle = $myModifyBox['libelle'] == filter_var($myModifyBox['libelle']) ? $myModifyBox['libelle'] : throw new \Exception("Le libelle n'est pas valide");
         $newBox->description = $myModifyBox['description'] == filter_var($myModifyBox['description']) ? $myModifyBox['description'] : throw new \Exception("La description n'est pas valide");
         $newBox->kdo = $myModifyBox['kdo'] == filter_var($myModifyBox['kdo']) ? ($myModifyBox['kdo'] == "oui") ? 1 : 0 : $valide = false;
-        if(isset($myModifyBox['message_kdo'])) {
+        if (isset($myModifyBox['message_kdo'])) {
             $newBox->message_kdo = $myModifyBox['message_kdo'] == filter_var($myModifyBox['message_kdo']) ? $myModifyBox['message_kdo'] : throw new \Exception("Le message n'est pas valide");
         }
         $newBox->statut = Box::CREATED;

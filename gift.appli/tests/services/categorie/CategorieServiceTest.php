@@ -5,15 +5,14 @@ namespace gift\test\services\categorie;
 
 use Faker\Factory;
 use gift\app\models\Categorie;
-use gift\app\models\Prestation;
 use gift\app\services\categories\CategoriesServices;
-use gift\app\services\prestations\PrestationsServices;
-use \PHPUnit\Framework\TestCase;
-use Illuminate\Database\Capsule\Manager as DB ;
+use Illuminate\Database\Capsule\Manager as DB;
+use PHPUnit\Framework\TestCase;
 
 final class CategorieServiceTest extends TestCase
 {
     private static array $categories = [];
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
@@ -24,15 +23,15 @@ final class CategorieServiceTest extends TestCase
         $db->bootEloquent();
         $faker = Factory::create('fr_FR');
 
-        $c1= Categorie::create([
+        $c1 = Categorie::create([
             'libelle' => $faker->word(),
             'description' => $faker->paragraph(3)
         ]);
-        $c2=Categorie::create([
+        $c2 = Categorie::create([
             'libelle' => $faker->word(),
             'description' => $faker->paragraph(4)
         ]);
-        self::$categories= [$c1, $c2];
+        self::$categories = [$c1, $c2];
     }
 
     public static function tearDownAfterClass(): void
@@ -43,7 +42,8 @@ final class CategorieServiceTest extends TestCase
 
     }
 
-    public function testgetCategories(): void {
+    public function testgetCategories(): void
+    {
 
         $categService = new CategoriesServices();
         $categories = $categService->getCategories();
@@ -57,7 +57,8 @@ final class CategorieServiceTest extends TestCase
         $this->assertEquals(self::$categories[1]['id'], $categories[1]['id']);
     }
 
-    public function testgetCategoriesById(): void {
+    public function testgetCategoriesById(): void
+    {
 
         $categService = new CategoriesServices();
         $categorie = $categService->getCategoriesById(self::$categories[0]['id']);

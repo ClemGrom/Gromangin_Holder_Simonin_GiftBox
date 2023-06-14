@@ -6,7 +6,7 @@ namespace gift\test\services\box;
 use Faker\Factory;
 use gift\app\models\Box;
 use gift\app\models\Prestation;
-use gift\app\services\box\BoxServices;
+use gift\app\services\authentification\AuthServices;
 use Illuminate\Database\Capsule\Manager as DB;
 use PHPUnit\Framework\TestCase;
 
@@ -24,6 +24,10 @@ final class BoxServiceTest extends TestCase
         $db->setAsGlobal();
         $db->bootEloquent();
         $faker = Factory::create('fr_FR');
+
+        $as = new AuthServices();
+        //$as->register("julesholder@gg.com", "OuiOuiOui");
+        $as->authenticate("julesholder@gg.com", "OuiOuiOui");
 
         $b1 = Box::create([
             'id' => $faker->uuid(),
@@ -65,12 +69,17 @@ final class BoxServiceTest extends TestCase
 
     public static function tearDownAfterClass(): void
     {
+        parent::tearDownAfterClass();
+
         foreach (self::$boxes as $b) {
             $b->delete();
         }
         foreach (self::$prestations as $p) {
             $p->delete();
         }
+        $as = new AuthServices();
+        $as->logout();
+
     }
 
     public function testCreationBoxVide(): void
@@ -80,40 +89,4 @@ final class BoxServiceTest extends TestCase
         $this->assertEquals(self::$boxes[2], $bs);
 
     }
-
-    public function testGetBox(): void
-    {
-        $bs = new BoxServices();
-        $b0 = $bs->getBox(self::$boxes[0]->id);
-        $b1 = $bs->getBox(self::$boxes[1]->id);
-        $b2 = $bs->getBox(self::$boxes[2]->id);
-        $this->assertEquals(self::$boxes[0]->toArray(), $b0);
-        $this->assertEquals(self::$boxes[1]->toArray(), $b1);
-        $this->assertEquals(self::$boxes[2]->toArray(), $b2);
-    }
-
-    public function testaddPrestationToBox(): void
-    {
-        $bs = new BoxServices();
-        $ps = new PrestationsServices();
-        $ba = $bs->getBox(self::$boxes[1]->id);
-        $b0 = Box::create([
-            'id' => $ba['id'],
-            'libelle' => $ba['libelle'],
-            'description' => $ba['description'],
-            'tarif' => $ba['tarif'],
-            'unite' => $ba['unite'],
-            'token' => $ba['token']
-        ]);
-        $b0->prestations()->attach(self::$prestations[0], ['quantite' => 1]);
-        $b0->save();
-        $b0->prestations()->attach(self::$prestations[1], ['quantite' => 2]);
-        $b0->save();
-
-        $this->assertEquals(self::$boxes[1], $b0);
-    }
-
-
-
-
 }

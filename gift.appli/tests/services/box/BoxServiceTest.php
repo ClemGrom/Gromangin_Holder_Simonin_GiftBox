@@ -10,6 +10,9 @@ use gift\app\services\authentification\AuthServices;
 use Illuminate\Database\Capsule\Manager as DB;
 use PHPUnit\Framework\TestCase;
 
+/*
+ * classe de test pour les boxes
+ */
 final class BoxServiceTest extends TestCase
 {
     private static array $boxes = [];

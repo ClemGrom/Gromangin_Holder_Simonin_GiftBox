@@ -2,12 +2,18 @@
 
 namespace gift\app\services\utils;
 
+/*
+ * classe service pour le token
+ */
 class CsrfService
 {
 
     const generation = ['abcdefghijklmnopqrstuvwxyz', '0123456789', '?,.;/:!$%*&#([-_^@)]=}{'];
     const lengthPassword = 15;
 
+    /*
+     * génèrer un token
+     */
     public static function generate(): string
     {
         $motDePasse = "";
@@ -19,6 +25,9 @@ class CsrfService
         return $motDePasse;
     }
 
+    /*
+     * vérifier le token
+     */
     public static function check($token): void
     {
         $tokenSessions = $_SESSION["token"];

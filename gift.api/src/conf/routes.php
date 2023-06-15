@@ -7,6 +7,7 @@ use gift\api\action\GetPrestationsOfCategorieApiAction;
 
 return function (\Slim\App $app): void {
 
+    // routes
     $app->get('/prestations', GetPrestationsApiAction::class);
     $app->get('/categories', GetCategoriesApiAction::class);
     $app->get('/categories/{id}/prestations', GetPrestationsOfCategorieApiAction::class);

@@ -4,9 +4,15 @@ namespace gift\app\services;
 
 use Illuminate\Database\Capsule\Manager as DB;
 
+/*
+ * classe service pour les catégories
+ */
 class Eloquent
 {
 
+    /*
+     * initialise eloquent
+     */
     public static function init($filename): void
     {
 

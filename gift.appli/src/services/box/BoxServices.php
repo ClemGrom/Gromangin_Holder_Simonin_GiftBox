@@ -6,15 +6,24 @@ use gift\app\models\Box;
 use gift\app\models\Prestation;
 use Ramsey\Uuid\Uuid;
 
+/*
+ * classe de services pour les box
+ */
 class BoxServices
 {
 
+    /*
+     * retourne la connexion de l'utilisateur
+     */
     function getConnection(): array
     {
         if (!isset($_SESSION['user'])) throw new \Exception("Vous n'êtes pas connecté");
         return $_SESSION['user'];
     }
 
+    /*
+     * retourne les box de l'utilisateur
+     */
     function boxUser()
     {
         $this->getConnection();
@@ -22,6 +31,9 @@ class BoxServices
         return Box::where('user_email', '=', $user['email'])->get();
     }
 
+    /*
+     * retourne la box en cours de création
+     */
     function boxEnCreation()
     {
         $boxes = $this->boxUser();
@@ -30,9 +42,11 @@ class BoxServices
         return $box;
     }
 
+    /*
+     * créer une nouvelle box
+     */
     function setNewBox(array $donnee): void
     {
-
         $box = $this->boxUser();
         foreach ($box as $b) {
             if ($b['statut'] == Box::CREATED) throw new \Exception("Vous avez déjà une box en cours de création");
@@ -65,6 +79,9 @@ class BoxServices
         $box->save();
     }
 
+    /*
+     * ajoute une prestation à la box en cours de création
+     */
     function addPrestationToBox(string $prestaId)
     {
         $box = $this->boxEnCreation();
@@ -82,9 +99,11 @@ class BoxServices
         $box->save();
     }
 
+    /*
+     * choisir le nombre de prestation à ajouter à la box en cours de création
+     */
     function chooseNumberPrestationToBox(string $prestaId, int $qte)
     {
-
         $box = $this->boxEnCreation();
 
         $presta = Prestation::where('id', '=', $prestaId)->first();
@@ -107,18 +126,27 @@ class BoxServices
         $box->save();
     }
 
+    /*
+     * get la box en cours de création
+     */
     function getMyBox(): array
     {
         $box = $this->boxEnCreation();
         return $box->toArray();
     }
 
+    /*
+     * get une box par son id
+     */
     function getBox($id): array
     {
         $box = Box::where('id', '=', $id)->first();
         return $box->toArray();
     }
 
+    /*
+     * valider la box en cours de création
+     */
     function validate(): void
     {
         $box = $this->boxEnCreation();
@@ -143,6 +171,9 @@ class BoxServices
         }
     }
 
+    /*
+     * status d'une box
+     */
     function statusBox($boxId): string
     {
         $box = Box::where('id', '=', $boxId)->first();
@@ -162,12 +193,18 @@ class BoxServices
         return $res;
     }
 
+    /*
+     * verification que la box est valide
+     */
     function verificationCoffretValide($boxId): void
     {
         $box = Box::where('id', '=', $boxId)->first();
         if ($box->statut != 2) throw new \Exception("La box n'est pas validée ou est déjà payée");
     }
 
+    /*
+     * payement d'une box
+     */
     function pay($id): void
     {
         $box = Box::where('id', '=', $id)->first();
@@ -175,6 +212,9 @@ class BoxServices
         $box->save();
     }
 
+    /*
+     * utilisation d'une box
+     */
     function use($id): void
     {
         $box = Box::where('id', '=', $id)->first();
@@ -182,6 +222,9 @@ class BoxServices
         $box->save();
     }
 
+    /*
+     * suppression d'une prestation d'une box
+     */
     function deletePrestation($prestationId): void
     {
         $user = $_SESSION['user'];
@@ -192,12 +235,18 @@ class BoxServices
         $box->save();
     }
 
+    /*
+     * get les box en prefilled
+     */
     function getPrefilledBox(): array
     {
         $boxes = Box::where('token', 'like', '%=')->get();
         return $boxes->toArray();
     }
 
+    /*
+     * créer une box depuis une box prefilled
+     */
     function createPrefilledBox($id)
     {
         $this->getConnection();
@@ -225,6 +274,9 @@ class BoxServices
         $newBox->save();
     }
 
+    /*
+     * get les box d'un user
+     */
     function getBoxOfUser(): array
     {
         $user = $this->getConnection();
@@ -232,6 +284,9 @@ class BoxServices
         return $boxes->toArray();
     }
 
+    /*
+     * créer une box et la remplir depuis une box prefilled
+     */
     function createPrefilledModifyBox($boxPrefilled, $myModifyBox)
     {
         $this->getConnection();

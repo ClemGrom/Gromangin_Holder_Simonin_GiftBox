@@ -6,14 +6,18 @@ use gift\api\services\PrestationServices;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
+/*
+ * action de l'api qui ajoute la liste des prestations sur l'api
+ */
 class GetPrestationsApiAction
 {
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
+        // récupération des prestations
         $p = new PrestationServices();
         $prestations = $p->getPrestations();
 
-        // remplir un tableau avec les données de la base de données pour faire une api
+        // création du tableau de prestations pour l'api
         $presta_api = [];
         foreach ($prestations as $presta) {
             $presta_api[] = [
@@ -28,6 +32,7 @@ class GetPrestationsApiAction
             ];
         }
 
+        // envoi de la réponse
         $rs->getBody()->write(json_encode($presta_api));
         return $rs->withHeader('Content-Type', 'application/json')->withStatus(200);
     }

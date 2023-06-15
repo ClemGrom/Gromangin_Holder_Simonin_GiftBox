@@ -11,19 +11,24 @@ use Slim\Exception\HttpBadRequestException;
 use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
 
+/*
+ * action pour payer une box
+ */
 class PostPayAction
 {
-
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
+        // récupérer les données du formulaire
         $post_data = $rq->getParsedBody();
 
+        // vérifier le token csrf
         try {
             CsrfService::check($post_data['csrf']);
         } catch (TokenInvalid $e) {
             throw new HttpBadRequestException($rq, "token invalide");
         }
 
+        // payer la box
         $b = new BoxServices();
         try {
             $b->pay($_GET['id']);
@@ -34,6 +39,7 @@ class PostPayAction
             ]);
         }
 
+        // redirection vers la page de la box
         $routeParser = RouteContext::fromRequest($rq)->getRouteParser();
         $url = $routeParser->urlFor('mesBox');
         return $rs->withStatus(302)->withHeader('Location', $url);

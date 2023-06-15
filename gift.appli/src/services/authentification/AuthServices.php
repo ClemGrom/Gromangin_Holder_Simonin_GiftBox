@@ -4,9 +4,15 @@ namespace gift\app\services\authentification;
 
 use gift\app\models\User;
 
+/*
+ * classe pour gérer l'authentification
+ */
 class AuthServices
 {
 
+    /*
+     * vérifier si l'utilisateur à indiqué les bons identifiants
+     */
     public function authenticate(string $email, string $passwd2check): void
     {
         if (isset($_SESSION['user'])) throw new \Exception("Vous êtes déjà connecté");
@@ -17,6 +23,9 @@ class AuthServices
         $_SESSION['user'] = $user->toArray();
     }
 
+    /*
+     * vérifier si le mot de passe est assez fort
+     */
     public static function checkPasswordStrength(string $pass, int $minimumLength): bool
     {
         if (strlen($pass) < $minimumLength || !preg_match("#[A-Z]#", $pass)) {
@@ -26,11 +35,17 @@ class AuthServices
         }
     }
 
+    /*
+     * deconnecter l'utilisateur
+     */
     public function logout(): void
     {
         unset($_SESSION['user']);
     }
 
+    /*
+     * enregistrer un nouvel utilisateur
+     */
     public function register(string $email, string $pass): void
     {
         if (isset($_SESSION['user'])) throw new \Exception("Vous êtes déjà connecté");
@@ -44,15 +59,5 @@ class AuthServices
         $user->email = $email;
         $user->password = $hash;
         $user->save();
-    }
-
-    public function addBox(string $boxId): void
-    {
-        $user = User::where('email', '=', $_SESSION['user']['email'])->first();
-        if (!$user) throw new \Exception("Compte inexistant");
-        $user->box_id = $boxId;
-        $user->save();
-
-        $_SESSION['user'] = $user->toArray();
     }
 }

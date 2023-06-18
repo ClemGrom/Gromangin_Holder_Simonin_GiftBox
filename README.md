@@ -4,12 +4,6 @@
 - HOLDER Jules
 - GROMANGIN Clément
 
-## Utiliser GiftBox depuis docketu :
-Rendez-vous sur l'URL suivante depuis le réseau de l'IUT ou un VPN :
-```
-docketu.iutnc.univ-lorraine.fr:22222/GiftBox
-```
-
 ## Mettre en place le projet GiftBox sur votre machine :
 
 ### Installation :
